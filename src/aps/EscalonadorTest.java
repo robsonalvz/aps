@@ -9,11 +9,16 @@ public class EscalonadorTest {
 	@Test
 	
 	// T1 Escalonador Vazio:
-	public void T1EscalonadorVazio() {
-		fail("Not yet implemented");
+	public void T1() {
+		
 	}
 	
 	// T2 Chamar o Tick e ver se ele incrementa:
+	public void T2() {
+		Escalonador escal = new Escalonador();
+		int valTick = escal.Tick();
+		System.out.println(valTick);
+	}
 	
 	// T3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua executando:
 	

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Escalonador {
-	
+	private int tick = 0;
 	
 	public Escalonador() {
 	}
@@ -17,8 +17,8 @@ public class Escalonador {
 		
 	}
 	
-	public void Tick(){
-		
+	public int Tick(){
+		return this.tick+=1;
 	}
 	
 	
