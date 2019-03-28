@@ -10,7 +10,9 @@ public class EscalonadorTest {
 	
 	// T1 Escalonador Vazio:
 	public void T1() {
-		
+		Escalonador escal = new Escalonador();
+		String status = escal.Status();
+		System.out.println(status);
 	}
 	
 	// T2 Chamar o Tick e ver se ele incrementa:
