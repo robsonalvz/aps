@@ -9,7 +9,7 @@ public class EscalonadorTest {
 	@Test
 	
 	// T1 Escalonador Vazio:
-	public void test() {
+	public void T1EscalonadorVazio() {
 		fail("Not yet implemented");
 	}
 	
