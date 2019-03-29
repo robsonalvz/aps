@@ -27,11 +27,11 @@ public class Escalonador {
 	}
 	
 	public String Status() {
-		String status = (""+this.tick) + " " + this.quantum; 
+		String status = ("Tick: "+this.tick) + ", Quantum: " + this.quantum; 
 		return status;
 		
 	}
-	
+
 	
 }
 

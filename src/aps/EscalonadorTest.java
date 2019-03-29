@@ -12,7 +12,7 @@ public class EscalonadorTest {
 	public void T1() {
 		Escalonador escal = new Escalonador();
 		String status = escal.Status();
-		assertEquals("0 5",status);
+		assertEquals("Tick: 0, Quantum: 5",status);
 	}
 	
 	// T2 Chamar o Tick e ver se ele incrementa:
