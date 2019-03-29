@@ -19,12 +19,20 @@ public class Escalonador {
 		
 	}
 	
-	public void finalizarProcesso() {
-		
+	public void finalizarProcesso(Processo p) {
+		p.setStatus(Status.Finalizado);
 	}
 	
-	public int Tick(){
-		return this.tick+=1;
+	public void removerProcesso(Processo p) {
+		for(int i = 0; i < this.processos.size(); i++) {
+			if(p.getNome().equals(this.processos.get(i).getNome())) {
+				
+			}
+		}
+	}
+	
+	public void tick(){
+		this.tick += 1;
 	}
 	
 	public String Status() {
