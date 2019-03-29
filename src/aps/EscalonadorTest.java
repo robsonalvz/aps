@@ -11,17 +11,18 @@ public class EscalonadorTest {
 	// T1 Escalonador Vazio:
 	public void T1() {
 		Escalonador escal = new Escalonador();
-		String status = escal.Status();
+		String status = escal.statusAtual();
 		assertEquals("Tick: 0, Quantum: 5",status);
 	}
 	
 	// T2 Chamar o Tick e ver se ele incrementa:
 	public void T2() {
 		Escalonador escal = new Escalonador();
-		int valTick = escal.Tick();
+		escal.tick();
+		int valTick = escal.getTick();
 		assertEquals(1,valTick);
 	}
-	
+
 	// T3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua executando:
 	
 	

@@ -7,27 +7,37 @@ public class Escalonador {
 	private int tick;
 	private int quantum;
 	private List<Processo> processos;
+	private Status status;
 	
 	public Escalonador() {
 		this.tick = 0;
 		this.quantum = 5;
 		this.processos = new ArrayList<>();
+		this.status = Status.Nenhum_Processo;
 	}
 	
-	public void adicionarProcesso() {
-		
+	public void adicionarProcesso(Processo processo) {
+		this.processos.add(processo);
 	}
 	
 	public void finalizarProcesso() {
 		
 	}
 	
-	public int Tick(){
-		return this.tick+=1;
+	public void tick(){
+		this.tick+=1;
 	}
 	
-	public String Status() {
-		String status = ("Tick: "+this.tick) + ", Quantum: " + this.quantum; 
+	public int getTick() {
+		return this.tick;
+	}
+	
+	public String statusAtual() {
+		Status p;
+		if (this.processos.size() == 0) {
+			p = this.status;
+		}
+		String status = ("Tick: "+this.tick) + ", Quantum: " + this.quantum;
 		return status;
 		
 	}
