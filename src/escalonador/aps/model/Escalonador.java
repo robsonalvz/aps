@@ -1,5 +1,5 @@
 
-package aps;
+package escalonador.aps.model;
 
 public class Escalonador {
 
