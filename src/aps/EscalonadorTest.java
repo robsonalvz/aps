@@ -24,6 +24,7 @@ public class EscalonadorTest {
 	
 	// T3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua executando:
 	
+	
 	// T4 A Partir do T3, Finalizar P1:
 	
 	// T5 Criar dois Processos em Tick 0:
