@@ -10,7 +10,7 @@ public class Escalonador {
 	
 	public Escalonador() {
 		this.tick = 0;
-		this.quantum = 0;
+		this.quantum = 5;
 		this.processos = new ArrayList<>();
 	}
 	
@@ -27,7 +27,7 @@ public class Escalonador {
 	}
 	
 	public String Status() {
-		String status = (""+this.tick) + this.quantum; 
+		String status = (""+this.tick) + " " + this.quantum; 
 		return status;
 		
 	}

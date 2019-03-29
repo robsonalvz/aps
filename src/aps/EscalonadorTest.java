@@ -12,14 +12,14 @@ public class EscalonadorTest {
 	public void T1() {
 		Escalonador escal = new Escalonador();
 		String status = escal.Status();
-		System.out.println(status);
+		assertEquals("0 5",status);
 	}
 	
 	// T2 Chamar o Tick e ver se ele incrementa:
 	public void T2() {
 		Escalonador escal = new Escalonador();
 		int valTick = escal.Tick();
-		System.out.println(valTick);
+		assertEquals(1,valTick);
 	}
 	
 	// T3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua executando:
