@@ -8,15 +8,21 @@ public class Escalonador {
 	private int tick;
 	private int quantum;
 	private List<Processo> processos;
+	private String status;
 	
 	public Escalonador() {
 		this.tick = 0;
 		this.quantum = 5;
+		this.status="";
 		this.processos = new ArrayList<>();
 	}
 
 	public void adicionarProcesso(Processo processo) {
 		this.processos.add(processo);
+		if (tick==0){
+			rodar();
+		}
+		
 	}
 
 	public void finalizarProcesso(Processo processo) {
@@ -28,7 +34,10 @@ public class Escalonador {
 	}
 
 	public void tick() {
+		rodar();
 		this.tick += 1;
+		
+		
 	}
 
 	public int getTick() {
@@ -41,11 +50,12 @@ public class Escalonador {
 
 
 	
-	public String status() {
-		String status = ("Tick: " + this.tick) + ", Quantum: " + this.quantum;
+	public String getStatus() {
 		return status;	
 	}
-	
+	public void setStatus(String status){
+		this.status = status;
+	}
 	public int getQuantum() {
 		return this.quantum;
 	}
@@ -64,13 +74,34 @@ public class Escalonador {
 
 	public List<Processo> listaEscalonador;
 	
+	public boolean escalonadorLivre(Processo processo){
+		for (Processo p : this.processos){
+			if (p.getNome()!=processo.getNome()){
+				if (p.getStatus().equals(Status.Executando)) return false;
+			}
+		}
+		return true;
+	}
+	
+	public void addStatus(Processo processo){
+		this.status += processo.getNome()+" : "+processo.getStatus().toString()+", " + ("Tick: " + this.tick) + (", Quantum: " + this.quantum)+"\n";
+	}
 	public void rodar(){
 		int duracao = tick;
+		
 		for (int i=0;i<=duracao;i++){
+			
 			for (Processo processo : this.processos){
-				
+				if (escalonadorLivre(processo)){
+					processo.setStatus(Status.Executando);
+					addStatus(processo);
+				}else{
+					processo.setStatus(Status.Esperando);
+					addStatus(processo);
+				}
 			}
 		}
 	}
+	
 
 }
