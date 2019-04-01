@@ -39,11 +39,29 @@ public class Escalonador {
 		this.tick = tick;
 	}
 
+
+	
 	public String status() {
 		String status = ("Tick: " + this.tick) + ", Quantum: " + this.quantum;
-		return status;
-
+		return status;	
 	}
+	
+	public int getQuantum() {
+		return this.quantum;
+	}
+	
+	public void incrementaQuantum() {
+		this.quantum += 1;
+	}
+	
+	public boolean quantumEstourado() {
+		if(this.getTick() >= this.getQuantum()-1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 	public List<Processo> listaEscalonador;
 	
 	public void rodar(){
