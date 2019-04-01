@@ -30,13 +30,35 @@ public class Escalonador {
 	public void tick(){
 		this.tick += 1;
 	}
+	
 	public int getTick(){
 		return this.tick;
 	}
+	
+	public void setTick(int tick) {
+		this.tick = tick;
+	}
+	
 	public String status() {
 		String status = ("Tick: "+this.tick) + ", Quantum: " + this.quantum; 
 		return status;
 		
+	}
+	
+	public int getQuantum() {
+		return this.quantum;
+	}
+	
+	public void incrementaQuantum() {
+		this.quantum += 1;
+	}
+	
+	public boolean quantumEstourado() {
+		if(this.getTick() >= this.getQuantum()-1) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	
