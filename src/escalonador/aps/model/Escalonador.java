@@ -23,6 +23,7 @@ public class Escalonador {
 
 	public void finalizarProcesso(Processo processo) {
 		processo.setStatus(Status.Finalizado);
+		removerProcesso(processo);
 	}
 
 	public void removerProcesso(Processo processo) {
@@ -44,7 +45,7 @@ public class Escalonador {
 
 	public String getStatus() {
 		if (this.processos.size() == 0) {
-			this.status = ("Tick: " + this.tick) + (", Quantum: " + this.quantum) + "\n";
+			this.status = "Nenhum processo";
 		}
 		return status;
 	}
@@ -53,7 +54,12 @@ public class Escalonador {
 
 		this.status = status;
 	}
-
+	public Processo getProcessoByName(String nome){
+		for (Processo p : this.processos){
+			if (p.getNome().equals(nome))return p;
+		}
+		return null;
+	}
 	public int getQuantum() {
 		return this.quantum;
 	}
