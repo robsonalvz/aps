@@ -1,29 +1,26 @@
 package escalonador.aps.model;
 
 public class Processo {
-	
+
 	private String nome;
 	private Status status;
 	private int tickAtual;
 	private int tickInicial;
-	
+
 	public Processo(String nome, Status status, int tickAtual, int tickInicial) {
 
 		this.nome = nome;
 		this.status = status;
 		this.tickAtual = tickAtual;
 		this.tickInicial = tickInicial;
-	
+
 	}
-	
-	public Processo (String nome, int tick) {
+
+	public Processo(String nome, int tick) {
 		this.nome = nome;
 		this.status = Status.Esperando;
 		this.tickInicial = tick;
 	}
-	
-
-
 
 	public String getNome() {
 		return nome;
@@ -56,10 +53,5 @@ public class Processo {
 	public void setTickInicial(int tickInicial) {
 		this.tickInicial = tickInicial;
 	}
-	
-	
-
-	
-	
 
 }
