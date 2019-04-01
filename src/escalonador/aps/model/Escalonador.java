@@ -19,10 +19,6 @@ public class Escalonador {
 
 	public void adicionarProcesso(Processo processo) {
 		this.processos.add(processo);
-		if (tick == 0) {
-			rodar();
-		}
-
 	}
 
 	public void finalizarProcesso(Processo processo) {
