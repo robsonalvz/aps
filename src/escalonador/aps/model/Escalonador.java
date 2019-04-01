@@ -60,7 +60,18 @@ public class Escalonador {
 			return false;
 		}
 	}
-
 	
+	public String toString(int tick) {
+		String saida = "";
+		if(this.tick == tick) {
+			for(int i = 0; i < this.processos.size(); i++) {
+				if(this.processos.get(i).getTickAtual() == tick) {
+					saida = this.processos.get(i).getNome() + ": " + this.processos.get(i).getStatus()+"\n";
+				}
+			}
+			
+		}
+		return saida;
+	}	
 }
 
