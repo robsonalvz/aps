@@ -2,25 +2,38 @@ package escalonador.aps.testes;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import escalonador.aps.model.Escalonador;
 
 public class EscalonadorTest {
-
-	@Test
 	
-	// T1 Escalonador Vazio:
-	public void T1() {
-		Escalonador escal = new Escalonador();
-		String status = escal.Status();
+	private Escalonador escalonador;
+	
+	@Before
+	public void criarEscalonador(){
+		escalonador = new Escalonador();
+	}
+
+	/* Teste 1
+	 * Escalonador vazio
+	 * Status -> Nenhum processo
+	 * Tick: 0
+	 * Quantim : default
+	 * */
+	@Test
+	public void testeEscalonadorVazio() {
+		String status = escalonador.status();
 		assertEquals("Tick: 0, Quantum: 5",status);
 	}
 	
-	// T2 Chamar o Tick e ver se ele incrementa:
-	public void T2() {
-		Escalonador escal = new Escalonador();
-		int valTick = escal.tick();
+	/* Teste 2
+	 * Verificar se o tick estÃ¡ incrementando
+	 */
+	@Test
+	public void testeIncrementaTick() {
+		int valTick = escalonador.getTick();
 		assertEquals(1,valTick);
 	}
 	
@@ -34,20 +47,20 @@ public class EscalonadorTest {
 	
 	// T6 Repetir T5 com 3 Processsos:
 	
-	// T7 Seguir o modelo de T5, mas P2 só é criado em Tick 3:
+	// T7 Seguir o modelo de T5, mas P2 sï¿½ ï¿½ criado em Tick 3:
 	
-	// T8 Com concorrência, Processo finaliza quando estava executando. No próximo Tick o segundo Processo passa a CPU:
+	// T8 Com concorrï¿½ncia, Processo finaliza quando estava executando. No prï¿½ximo Tick o segundo Processo passa a CPU:
 	
-	// T9 Com concorrência, Processo finaliza quando estava esperando. Quando o Quantum estourar o primeiro Processo não perde a CPU:
+	// T9 Com concorrï¿½ncia, Processo finaliza quando estava esperando. Quando o Quantum estourar o primeiro Processo nï¿½o perde a CPU:
 	
-	// T10 T5 com Quantum não Default
+	// T10 T5 com Quantum nï¿½o Default
 	
 	// T11 Dois Processos com intervalo no meio:
 	
 	// T12 A partir de T6, o processo Executando Bloqueia:
 	
-	// T13 A partir de T12, P1 é retomado quando P2 está executando:
+	// T13 A partir de T12, P1 ï¿½ retomado quando P2 estï¿½ executando:
 	
-	// T14 Os Três Processos Bloqueiam e retomam na ordem P2, P1, P3 e o quantum funciona nesta nova ordem:
+	// T14 Os Trï¿½s Processos Bloqueiam e retomam na ordem P2, P1, P3 e o quantum funciona nesta nova ordem:
 
 }

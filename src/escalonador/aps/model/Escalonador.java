@@ -15,8 +15,8 @@ public class Escalonador {
 		this.processos = new ArrayList<>();
 	}
 	
-	public void adicionarProcesso() {
-		
+	public void adicionarProcesso(Processo p) {
+		this.processos.add(p);
 	}
 	
 	public void finalizarProcesso(Processo p) {
@@ -24,18 +24,16 @@ public class Escalonador {
 	}
 	
 	public void removerProcesso(Processo p) {
-		for(int i = 0; i < this.processos.size(); i++) {
-			if(p.getNome().equals(this.processos.get(i).getNome())) {
-				
-			}
-		}
+		this.processos.remove(p);
 	}
 	
 	public void tick(){
 		this.tick += 1;
 	}
-	
-	public String Status() {
+	public int getTick(){
+		return this.tick;
+	}
+	public String status() {
 		String status = ("Tick: "+this.tick) + ", Quantum: " + this.quantum; 
 		return status;
 		
