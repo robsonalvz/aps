@@ -16,11 +16,10 @@ public class Processo {
 	
 	}
 	
-	public Processo () {
-		this.nome = "";
+	public Processo (String nome, int tick) {
+		this.nome = nome;
 		this.status = Status.Esperando;
-		this.tickAtual = 0;
-		this.tickInicial = 0;
+		this.tickInicial = tick;
 	}
 	
 

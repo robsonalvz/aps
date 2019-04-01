@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import escalonador.aps.model.Escalonador;
+import escalonador.aps.model.Processo;
 
 public class EscalonadorTest {
 	
@@ -37,9 +38,18 @@ public class EscalonadorTest {
 		assertEquals(1,escalonador.getTick());
 	}
 	
+	/* Teste 3
+	 * Adicionar Processo P1 no Tick 0, 
+	 * Chamar o Tick e ver se P1 continua executando: */	
+	@Test
+	public void testeProcessoTickZero(){
+		Processo p = new Processo("P1",escalonador.getTick());
+		System.out.println(escalonador.status());
+		escalonador.adicionarProcesso(p);
+	}
 	
 
-	// T3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua executando:
+
 	
 	// T4 A Partir do T3, Finalizar P1:
 	

@@ -15,16 +15,16 @@ public class Escalonador {
 		this.processos = new ArrayList<>();
 	}
 	
-	public void adicionarProcesso(Processo p) {
-		this.processos.add(p);
+	public void adicionarProcesso(Processo processo) {
+		this.processos.add(processo);
 	}
 	
-	public void finalizarProcesso(Processo p) {
-		p.setStatus(Status.Finalizado);
+	public void finalizarProcesso(Processo processo) {
+		processo.setStatus(Status.Finalizado);
 	}
 	
-	public void removerProcesso(Processo p) {
-		this.processos.remove(p);
+	public void removerProcesso(Processo processo) {
+		this.processos.remove(processo);
 	}
 	
 	public void tick(){
