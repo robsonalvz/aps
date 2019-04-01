@@ -91,6 +91,9 @@ public class Escalonador {
 				+ (", Quantum: " + this.quantum) + "\n";
 	}
 
+	public String getSaida(Processo processo) {
+		return processo.getNome() + ": " + processo.getStatus(); 
+	}
 	public void rodar() {
 		int duracao = tick;
 
