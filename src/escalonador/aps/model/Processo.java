@@ -15,9 +15,11 @@ public class Processo {
 		this.tickInicial = tickInicial;
 
 	}
-	public Processo(){
-		
+
+	public Processo() {
+
 	}
+
 	public Processo(String nome, int tick) {
 		this.nome = nome;
 		this.status = Status.Esperando;

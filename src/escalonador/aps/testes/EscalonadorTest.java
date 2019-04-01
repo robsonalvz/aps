@@ -10,7 +10,6 @@ import escalonador.aps.model.Processo;
 
 import escalonador.aps.model.Status;
 
-
 public class EscalonadorTest {
 
 	private Escalonador escalonador;
@@ -49,25 +48,21 @@ public class EscalonadorTest {
 		Processo p = new Processo("P1", escalonador.getTick());
 		escalonador.adicionarProcesso(p);
 		System.out.println(escalonador.getStatus());
-		assertEquals("P1: Executando, Tick: 0, Quantum: 5\n",escalonador.getStatus());
+		assertEquals("P1: Executando, Tick: 0, Quantum: 5\n", escalonador.getStatus());
 		escalonador.tick();
-		assertEquals(p.getStatus(),Status.Executando);
-		
-		
-	}
+		assertEquals(p.getStatus(), Status.Executando);
 
+	}
 
 	// T4 A Partir do T3, Finalizar P1:
 
 	// T5 Criar dois Processos em Tick 0:
 
-
-	
 	// T5 Criar dois Processos em Tick 0:
-	
+
 	@Test
 	public void criarDoisProcessosNoTick() {
-	
+
 		Processo p1 = new Processo();
 		p1.setStatus(Status.Executando);
 		escalonador.adicionarProcesso(p1);
@@ -77,22 +72,20 @@ public class EscalonadorTest {
 		escalonador.tick();
 		escalonador.tick();
 		escalonador.tick();
-		if(escalonador.quantumEstourado()) {
+		if (escalonador.quantumEstourado()) {
 			p1.setStatus(Status.Esperando);
 			p2.setStatus(Status.Executando);
 			int tick = escalonador.getQuantum();
 			escalonador.setTick(tick);
 		}
-		
-		
-		
+
 	}
-	
-	// T3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua executando:
-	
+
+	// T3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua
+	// executando:
+
 	// T4 A Partir do T3, Finalizar P1:
-	
-	
+
 	// T6 Repetir T5 com 3 Processsos:
 
 	// T7 Seguir o modelo de T5, mas P2 s� � criado em Tick 3:
