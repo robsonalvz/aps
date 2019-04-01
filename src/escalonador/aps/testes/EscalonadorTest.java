@@ -70,7 +70,8 @@ public class EscalonadorTest {
 	@Test
 	public void criarDoisProcessosNoTick() {
 
-
+		// T5: Cria dois processos no mesmo Tick e roda;
+		
 		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
 		p1.setStatus(Status.Executando);
 		escalonador.adicionarProcesso(p1);
@@ -102,7 +103,61 @@ public class EscalonadorTest {
 		
 		assertEquals(escalonador.getSaida(p1) + "\n" + escalonador.getSaida(p2), resultado1 + "\n" + resultado2);
 	}
-	// T4 A Partir do T3, Finalizar P1:
+	
+	@Test
+	public void criarTresProcessosNoTick() {
+		
+		// T6: Cria tres processos no mesmo Tick e roda;
+		
+		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
+		p1.setStatus(Status.Executando);
+		escalonador.adicionarProcesso(p1);
+		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
+		escalonador.adicionarProcesso(p2);
+		Processo p3 = new Processo("P2", Status.Esperando, 0, 0);
+		escalonador.adicionarProcesso(p3);
+		
+		for(int i = 0; i < escalonador.getQuantum() - 1; i ++ ) {
+			escalonador.tick();
+		}
+		
+		if (escalonador.quantumEstourado()) {
+			p1.setStatus(Status.Esperando);
+			p2.setStatus(Status.Executando);
+			p3.setStatus(Status.Esperando);
+			int tick = escalonador.getQuantum();
+			escalonador.setTick(tick);
+		}
+		
+		for(int i = 0; i < escalonador.getQuantum() - 1; i ++ ) {
+			escalonador.tick();
+		}
+		
+		if (escalonador.quantumEstourado()) {
+			p1.setStatus(Status.Esperando);
+			p2.setStatus(Status.Esperando);
+			p3.setStatus(Status.Executando);
+			int tick = escalonador.getQuantum() * 2;
+			escalonador.setTick(tick);
+		}
+		
+		for(int i = 0; i < (escalonador.getQuantum() - 1) * 2; i ++ ) {
+			escalonador.tick();
+		}
+		
+		if(escalonador.quantumEstourado()) {
+			p1.setStatus(Status.Executando);
+			p2.setStatus(Status.Esperando);
+			p3.setStatus(Status.Esperando);
+		}
+		
+		String resultado1 = p1.getNome() + ": " + p1.getStatus();
+		String resultado2 = p2.getNome() + ": " + p2.getStatus();
+		String resultado3 = p3.getNome() + ": " + p3.getStatus();
+		
+		assertEquals(escalonador.getSaida(p1) + "\n" + escalonador.getSaida(p2) + "\n" 
+		+ escalonador.getSaida(p3), resultado1 + "\n" + resultado2 + "\n" + resultado3);
+	}
 
 	// T6 Repetir T5 com 3 Processsos:
 
