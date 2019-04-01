@@ -47,7 +47,6 @@ public class EscalonadorTest {
 	public void testeUmProcessoTickZero() {
 		Processo p = new Processo("P1", escalonador.getTick());
 		escalonador.adicionarProcesso(p);
-		
 		escalonador.tick();
 		assertEquals("P1: Executando, Tick: 0, Quantum: 5\n", escalonador.getStatus());
 		assertEquals(p.getStatus(), Status.Executando);
