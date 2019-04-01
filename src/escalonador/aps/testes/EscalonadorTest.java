@@ -58,6 +58,22 @@ public class EscalonadorTest {
 
 	@Test
 	public void criarDoisProcessosNoTick() {
+	
+		/* criar dois processos no tick 0
+		status -> p1 executando
+		p2 - esperando
+		tick-0
+		quantum...
+		Chamar o tick at� estourar o quantum
+		status - > p2 - executando
+		p1-esperando
+		tick:quantumDefault
+		quantim....
+		chamar o tick at� estourar o quantum
+		status-> p1 - executando
+		p2 - esperando
+		tick - quantum*2 */
+
 
 		Processo p1 = new Processo();
 		p1.setStatus(Status.Executando);
@@ -74,7 +90,16 @@ public class EscalonadorTest {
 			int tick = escalonador.getQuantum();
 			escalonador.setTick(tick);
 		}
-
+		
+		for(int i = 0; i < escalonador.getQuantum() - 1; i ++ ) {
+			escalonador.tick();
+		}
+		
+		if(escalonador.quantumEstourado()) {
+			p1.setStatus(Status.Executando);
+			p2.setStatus(Status.Esperando);
+		}
+		
 	}
 	// T4 A Partir do T3, Finalizar P1:
 
