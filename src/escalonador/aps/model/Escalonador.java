@@ -51,9 +51,13 @@ public class Escalonador {
 
 	
 	public String getStatus() {
+		if (this.processos.size()==0){
+			this.status = ("Tick: " + this.tick) + (", Quantum: " + this.quantum)+"\n";
+		}
 		return status;	
 	}
 	public void setStatus(String status){
+	
 		this.status = status;
 	}
 	public int getQuantum() {
@@ -84,8 +88,9 @@ public class Escalonador {
 	}
 	
 	public void addStatus(Processo processo){
-		this.status += processo.getNome()+" : "+processo.getStatus().toString()+", " + ("Tick: " + this.tick) + (", Quantum: " + this.quantum)+"\n";
+		this.status += processo.getNome()+": "+processo.getStatus().toString()+", " + ("Tick: " + this.tick) + (", Quantum: " + this.quantum)+"\n";
 	}
+	
 	public void rodar(){
 		int duracao = tick;
 		

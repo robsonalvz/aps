@@ -27,7 +27,8 @@ public class EscalonadorTest {
 	@Test
 	public void testeEscalonadorVazio() {
 		String status = escalonador.getStatus();
-		assertEquals("Tick: 0, Quantum: 5", status);
+		System.out.println(escalonador.getStatus());
+		assertEquals("Tick: 0, Quantum: 5\n", status);
 	}
 
 	/*
@@ -48,6 +49,7 @@ public class EscalonadorTest {
 		Processo p = new Processo("P1", escalonador.getTick());
 		escalonador.adicionarProcesso(p);
 		System.out.println(escalonador.getStatus());
+		assertEquals("P1: Executando, Tick: 0, Quantum: 5\n",escalonador.getStatus());
 		escalonador.tick();
 		assertEquals(p.getStatus(),Status.Executando);
 		
