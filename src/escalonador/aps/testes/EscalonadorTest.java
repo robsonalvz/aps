@@ -33,8 +33,8 @@ public class EscalonadorTest {
 	 */
 	@Test
 	public void testeIncrementaTick() {
-		int valTick = escalonador.getTick();
-		assertEquals(1,valTick);
+		escalonador.tick();
+		assertEquals(1,escalonador.getTick());
 	}
 	
 	
