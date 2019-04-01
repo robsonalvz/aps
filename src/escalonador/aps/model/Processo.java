@@ -15,6 +15,16 @@ public class Processo {
 		this.tickInicial = tickInicial;
 	
 	}
+	
+	public Processo () {
+		this.nome = "";
+		this.status = Status.Esperando;
+		this.tickAtual = 0;
+		this.tickInicial = 0;
+	}
+	
+
+
 
 	public String getNome() {
 		return nome;
