@@ -158,8 +158,33 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getSaida(p1) + "\n" + escalonador.getSaida(p2) + "\n" 
 		+ escalonador.getSaida(p3), resultado1 + "\n" + resultado2 + "\n" + resultado3);
 	}
+	
+	@Test
+	public void comConcorrenciaProcessoFinaliza() {
+		
+		// T8: Com concorrência o processo finaliza quando estava executando. E no próximo Tick o segundo processo passa para CPU; 
+		
+		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
+		p1.setStatus(Status.Executando);
+		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
+		p1.setStatus(Status.Esperando);
+		
+		escalonador.adicionarProcesso(p1);
+		escalonador.adicionarProcesso(p2);
+		escalonador.finalizarProcesso(p1);
+		
+		escalonador.tick();
+		p2.setTickAtual(escalonador.getTick());
+		
+		p2.setStatus(Status.Executando);
+		
+		String resultado1 = p1.getNome() + ": " + p1.getStatus();
+		String resultado2 = p2.getNome() + ": " + p2.getStatus();
+	
+		assertEquals(escalonador.getSaida(p1) + "\n" + escalonador.getSaida(p2), resultado1 + "\n" + resultado2);
+		
+	}
 
-	// T6 Repetir T5 com 3 Processsos:
 
 	// T7 Seguir o modelo de T5, mas P2 sï¿½ ï¿½ criado em Tick 3:
 
