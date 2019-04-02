@@ -141,7 +141,7 @@ public class EscalonadorTest {
 	}
 	
 	@Test
-	public void comConcorrenciaProcessoFinaliza() {
+	public void comConcorrenciaProcessoFinalizaExecutando() {
 		
 		// T8: Com concorrência o processo finaliza quando estava executando. E no próximo Tick o segundo processo passa para CPU; 
 		
@@ -152,25 +152,39 @@ public class EscalonadorTest {
 		
 		escalonador.adicionarProcesso(p1);
 		escalonador.adicionarProcesso(p2);
-		escalonador.finalizarProcesso(p1);
-		
 		escalonador.tick();
-		p2.setTickAtual(escalonador.getTick());
+		escalonador.finalizarProcesso(p1);
+		escalonador.tick();
 		
-		p2.setStatus(Status.Executando);
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P2: Executando, Tick: 1, Quantum: 2\n";
 		
-		String resultado1 = p1.getNome() + ": " + p1.getStatus();
-		String resultado2 = p2.getNome() + ": " + p2.getStatus();
-	
-		assertEquals(escalonador.getSaida(p1) + "\n" + escalonador.getSaida(p2), resultado1 + "\n" + resultado2);
-		
+		assertEquals(escalonador.getStatus(), resultado);
 	}
-
-
-	// T7 Seguir o modelo de T5, mas P2 sï¿½ ï¿½ criado em Tick 3:
-
-	// T8 Com concorrï¿½ncia, Processo finaliza quando estava executando. No
-	// prï¿½ximo Tick o segundo Processo passa a CPU:
+	@Test
+	public void comConcorrenciaProcessoFinalizaEsperando() {
+		
+		// T9: Com concorrência o processo finaliza quando estava esperando. E o primeiro processo não perde a CPU; 
+		
+		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
+		p1.setStatus(Status.Executando);
+		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
+		p1.setStatus(Status.Esperando);
+		
+		escalonador.adicionarProcesso(p1);
+		escalonador.adicionarProcesso(p2);
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		escalonador.finalizarProcesso(p2);
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		System.out.println(escalonador.getStatus());
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P2: Executando, Tick: 1, Quantum: 2\n";
+		
+		//assertEquals(escalonador.getStatus(), resultado);
+	}
 
 	// T9 Com concorrï¿½ncia, Processo finaliza quando estava esperando. Quando o
 	// Quantum estourar o primeiro Processo nï¿½o perde a CPU:
