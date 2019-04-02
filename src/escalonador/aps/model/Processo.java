@@ -16,9 +16,6 @@ public class Processo {
 
 	}
 
-	public Processo() {
-
-	}
 
 	public Processo(String nome, int tick) {
 		this.nome = nome;

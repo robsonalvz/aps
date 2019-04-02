@@ -72,36 +72,32 @@ public class EscalonadorTest {
 
 		// T5: Cria dois processos no mesmo Tick e roda;
 		
-		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
-		p1.setStatus(Status.Executando);
+		Processo p1 = new Processo("P1",0);
 		escalonador.adicionarProcesso(p1);
-		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
+		Processo p2 = new Processo("P2", 0);
 		escalonador.adicionarProcesso(p2);
 		
-		for(int i = 0; i < escalonador.getQuantum() - 1; i ++ ) {
-			escalonador.tick();
-		}
+		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		if (escalonador.quantumEstourado()) {
-			p1.setStatus(Status.Esperando);
-			p2.setStatus(Status.Executando);
-			int tick = escalonador.getQuantum();
-			escalonador.setTick(tick);
-		}
+		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		for(int i = 0; i < escalonador.getQuantum() - 1; i ++ ) {
-			escalonador.tick();
-		}
+		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		if(escalonador.quantumEstourado()) {
-			p1.setStatus(Status.Executando);
-			p2.setStatus(Status.Esperando);
-		}
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P1: Executando, Tick: 1, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 1, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 2, Quantum: 2\n" + 
+				"P2: Executando, Tick: 2, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 3, Quantum: 2\n" + 
+				"P2: Executando, Tick: 3, Quantum: 2\n" + 
+				"P1: Executando, Tick: 4, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 4, Quantum: 2\n" + 
+				"P1: Executando, Tick: 5, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 5, Quantum: 2\n";
 		
-		String resultado1 = p1.getNome() + ": " + p1.getStatus();
-		String resultado2 = p2.getNome() + ": " + p2.getStatus();
+		assertEquals(escalonador.getStatus(), resultado);
 		
-		assertEquals(escalonador.getSaida(p1) + "\n" + escalonador.getSaida(p2), resultado1 + "\n" + resultado2);
 	}
 	
 	@Test
@@ -109,54 +105,39 @@ public class EscalonadorTest {
 		
 		// T6: Cria tres processos no mesmo Tick e roda;
 		
-		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
-		p1.setStatus(Status.Executando);
+		Processo p1 = new Processo("P1",0);
 		escalonador.adicionarProcesso(p1);
-		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
+		Processo p2 = new Processo("P2", 0);
 		escalonador.adicionarProcesso(p2);
-		Processo p3 = new Processo("P2", Status.Esperando, 0, 0);
+		Processo p3 = new Processo("P3", 0);
 		escalonador.adicionarProcesso(p3);
 		
-		for(int i = 0; i < escalonador.getQuantum() - 1; i ++ ) {
-			escalonador.tick();
-		}
+		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		if (escalonador.quantumEstourado()) {
-			p1.setStatus(Status.Esperando);
-			p2.setStatus(Status.Executando);
-			p3.setStatus(Status.Esperando);
-			int tick = escalonador.getQuantum();
-			escalonador.setTick(tick);
-		}
+		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		for(int i = 0; i < escalonador.getQuantum() - 1; i ++ ) {
-			escalonador.tick();
-		}
+		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		if (escalonador.quantumEstourado()) {
-			p1.setStatus(Status.Esperando);
-			p2.setStatus(Status.Esperando);
-			p3.setStatus(Status.Executando);
-			int tick = escalonador.getQuantum() * 2;
-			escalonador.setTick(tick);
-		}
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P1: Executando, Tick: 1, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 1, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 1, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 2, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 2, Quantum: 2\n" + 
+				"P3: Executando, Tick: 2, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 3, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 3, Quantum: 2\n" + 
+				"P3: Executando, Tick: 3, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 4, Quantum: 2\n" + 
+				"P2: Executando, Tick: 4, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 4, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 5, Quantum: 2\n" + 
+				"P2: Executando, Tick: 5, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 5, Quantum: 2\n";
 		
-		for(int i = 0; i < (escalonador.getQuantum() - 1) * 2; i ++ ) {
-			escalonador.tick();
-		}
-		
-		if(escalonador.quantumEstourado()) {
-			p1.setStatus(Status.Executando);
-			p2.setStatus(Status.Esperando);
-			p3.setStatus(Status.Esperando);
-		}
-		
-		String resultado1 = p1.getNome() + ": " + p1.getStatus();
-		String resultado2 = p2.getNome() + ": " + p2.getStatus();
-		String resultado3 = p3.getNome() + ": " + p3.getStatus();
-		
-		assertEquals(escalonador.getSaida(p1) + "\n" + escalonador.getSaida(p2) + "\n" 
-		+ escalonador.getSaida(p3), resultado1 + "\n" + resultado2 + "\n" + resultado3);
+		assertEquals(escalonador.getStatus(), resultado);
 	}
 	
 	@Test
