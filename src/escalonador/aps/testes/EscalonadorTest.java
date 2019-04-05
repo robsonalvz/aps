@@ -26,7 +26,6 @@ public class EscalonadorTest {
 	@Test
 	public void testeEscalonadorVazio() {
 		String status = escalonador.getStatus();
-		System.out.println(escalonador.getStatus());
 		assertEquals("Nenhum processo", status);
 	}
 
@@ -48,7 +47,8 @@ public class EscalonadorTest {
 		Processo p = new Processo("P1", escalonador.getTick());
 		escalonador.adicionarProcesso(p);
 		escalonador.tick();
-		assertEquals("P1: Executando, Tick: 0, Quantum: 5\n", escalonador.getStatus());
+		System.out.println(escalonador.getStatus());
+		assertEquals("P1: Executando, Tick: 0, Quantum: 2\n", escalonador.getStatus());
 		assertEquals(p.getStatus(), Status.Executando);
 
 	}
@@ -143,7 +143,7 @@ public class EscalonadorTest {
 	@Test
 	public void comConcorrenciaProcessoFinalizaExecutando() {
 		
-		// T8: Com concorrência o processo finaliza quando estava executando. E no próximo Tick o segundo processo passa para CPU; 
+		// T8: Com concorrï¿½ncia o processo finaliza quando estava executando. E no prï¿½ximo Tick o segundo processo passa para CPU; 
 		
 		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
 		p1.setStatus(Status.Executando);
@@ -165,7 +165,7 @@ public class EscalonadorTest {
 	@Test
 	public void comConcorrenciaProcessoFinalizaEsperando() {
 		
-		// T9: Com concorrência o processo finaliza quando estava esperando. E o primeiro processo não perde a CPU; 
+		// T9: Com concorrï¿½ncia o processo finaliza quando estava esperando. E o primeiro processo nï¿½o perde a CPU; 
 		
 		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
 		p1.setStatus(Status.Executando);
@@ -178,7 +178,6 @@ public class EscalonadorTest {
 		escalonador.finalizarProcesso(p2);
 		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		System.out.println(escalonador.getStatus());
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
 				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
 				"P2: Executando, Tick: 1, Quantum: 2\n";
