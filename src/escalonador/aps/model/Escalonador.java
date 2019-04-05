@@ -125,5 +125,8 @@ public class Escalonador {
 			}
 		}
 	}
+	public void setQuantum(int quantum) {
+		this.quantum = quantum;
+	}
 
 }

@@ -187,9 +187,56 @@ public class EscalonadorTest {
 		
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	@Test
+	public void criarDoisProcessosNoTickSemQuantumDefault() {
 
-	// T9 Com concorr�ncia, Processo finaliza quando estava esperando. Quando o
-	// Quantum estourar o primeiro Processo n�o perde a CPU:
+		// T10: Cria dois processos no mesmo Tick e roda escolhendo o quantum;
+		
+		Processo p1 = new Processo("P1",0);
+		escalonador.adicionarProcesso(p1);
+		Processo p2 = new Processo("P2", 0);
+		escalonador.adicionarProcesso(p2);
+		
+		escalonador.setQuantum(4);
+		
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 0, Quantum: 4\n" + 
+				"P1: Executando, Tick: 1, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 1, Quantum: 4\n" + 
+				"P1: Executando, Tick: 2, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 2, Quantum: 4\n" + 
+				"P1: Executando, Tick: 3, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 3, Quantum: 4\n" + 
+				"P1: Esperando, Tick: 4, Quantum: 4\n" + 
+				"P2: Executando, Tick: 4, Quantum: 4\n" + 
+				"P1: Esperando, Tick: 5, Quantum: 4\n" + 
+				"P2: Executando, Tick: 5, Quantum: 4\n" + 
+				"P1: Esperando, Tick: 6, Quantum: 4\n" + 
+				"P2: Executando, Tick: 6, Quantum: 4\n" + 
+				"P1: Esperando, Tick: 7, Quantum: 4\n" + 
+				"P2: Executando, Tick: 7, Quantum: 4\n" + 
+				"P1: Executando, Tick: 8, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 8, Quantum: 4\n" + 
+				"P1: Executando, Tick: 9, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 9, Quantum: 4\n" + 
+				"P1: Executando, Tick: 10, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 10, Quantum: 4\n" + 
+				"P1: Executando, Tick: 11, Quantum: 4\n" + 
+				"P2: Esperando, Tick: 11, Quantum: 4\n";
+		
+		System.out.println(escalonador.getStatus());
+		assertEquals(escalonador.getStatus(), resultado);
+		
+	}
+
+	
 
 	// T10 T5 com Quantum n�o Default
 
