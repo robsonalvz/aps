@@ -2,6 +2,7 @@
 package escalonador.aps.model;
 
 import java.util.List;
+import java.util.Collections;
 import java.util.ArrayList;
 
 public class Escalonador {
@@ -30,10 +31,6 @@ public class Escalonador {
 		this.processos.remove(processo);
 	}
 
-	public void tick() {
-		rodar();
-		this.tick += 1;
-	}
 
 	public int getTick() {
 		return this.tick;
@@ -75,15 +72,7 @@ public class Escalonador {
 
 	public List<Processo> listaEscalonador;
 
-	public boolean escalonadorLivre(Processo processo) {
-		for (Processo p : this.processos) {
-			if (p.getNome() != processo.getNome()) {
-				if (p.getStatus().equals(Status.Executando))
-					return false;
-			}
-		}
-		return true;
-	}
+
 
 	public void addStatus(Processo processo) {
 		this.status += processo.getNome() + ": " + processo.getStatus().toString() + ", " + ("Tick: " + this.tick)
@@ -93,8 +82,18 @@ public class Escalonador {
 	public String getSaida(Processo processo) {
 		return processo.getNome() + ": " + processo.getStatus(); 
 	}
-	public void rodar() {
 	
+	public boolean escalonadorLivre(Processo processo) {
+		for (Processo p : this.processos) {
+			if (p.getNome() != processo.getNome() && p.getStatus().equals(Status.Executando)) {
+					return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	public void rodar() {
 		for (Processo processo : this.processos) {
 				if (escalonadorLivre(processo)) {
 					processo.setStatus(Status.Executando);
@@ -106,27 +105,42 @@ public class Escalonador {
 			}
 	}
 	
+	public void tick() {
+		rodar();
+		this.tick += 1;
+	}
+	
 	public void estourarQuantum(int quantum) {
 	
 		for(int i = 0; i < quantum; i++) {
 			tick();
 		}
-		mudarStatus();	
+		mudarStatus();
+
 	}
 	
 	public void mudarStatus() {
 		if(quantumEstourado()) {
 			for(Processo processo : this.processos) {
-				if(processo.getStatus().equals(Status.Executando)) {
-					processo.setStatus(Status.Esperando);
-				}else {
-					processo.setStatus(Status.Executando);
+				
+					if(processo.getStatus().equals(Status.Executando)) {
+							processo.setStatus(Status.Esperando);	
+					}else {
+						if(this.escalonadorLivre(processo)) {
+							processo.setStatus(Status.Executando);
+						}				
+						
+					}
+				
 				}
 			}
-		}
+	
+		
 	}
+	
 	public void setQuantum(int quantum) {
 		this.quantum = quantum;
 	}
+	
 
 }

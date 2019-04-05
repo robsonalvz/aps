@@ -47,7 +47,6 @@ public class EscalonadorTest {
 		Processo p = new Processo("P1", escalonador.getTick());
 		escalonador.adicionarProcesso(p);
 		escalonador.tick();
-		System.out.println(escalonador.getStatus());
 		assertEquals("P1: Executando, Tick: 0, Quantum: 2\n", escalonador.getStatus());
 		assertEquals(p.getStatus(), Status.Executando);
 
@@ -111,12 +110,17 @@ public class EscalonadorTest {
 		escalonador.adicionarProcesso(p2);
 		Processo p3 = new Processo("P3", 0);
 		escalonador.adicionarProcesso(p3);
+
 		
 		escalonador.estourarQuantum(escalonador.getQuantum());
 		
-		escalonador.estourarQuantum(escalonador.getQuantum());
 		
 		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		
 		
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
 				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
@@ -125,17 +129,18 @@ public class EscalonadorTest {
 				"P2: Esperando, Tick: 1, Quantum: 2\n" + 
 				"P3: Esperando, Tick: 1, Quantum: 2\n" + 
 				"P1: Esperando, Tick: 2, Quantum: 2\n" + 
-				"P2: Esperando, Tick: 2, Quantum: 2\n" + 
-				"P3: Executando, Tick: 2, Quantum: 2\n" + 
+				"P2: Executando, Tick: 2, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 2, Quantum: 2\n" + 
 				"P1: Esperando, Tick: 3, Quantum: 2\n" + 
-				"P2: Esperando, Tick: 3, Quantum: 2\n" + 
-				"P3: Executando, Tick: 3, Quantum: 2\n" + 
+				"P2: Executando, Tick: 3, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 3, Quantum: 2\n" + 
 				"P1: Esperando, Tick: 4, Quantum: 2\n" + 
-				"P2: Executando, Tick: 4, Quantum: 2\n" + 
-				"P3: Esperando, Tick: 4, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 4, Quantum: 2\n" + 
+				"P3: Executando, Tick: 4, Quantum: 2\n" + 
 				"P1: Esperando, Tick: 5, Quantum: 2\n" + 
-				"P2: Executando, Tick: 5, Quantum: 2\n" + 
-				"P3: Esperando, Tick: 5, Quantum: 2\n";
+				"P2: Esperando, Tick: 5, Quantum: 2\n" + 
+				"P3: Executando, Tick: 5, Quantum: 2\n" + 
+				"";
 		
 		assertEquals(escalonador.getStatus(), resultado);
 	}
@@ -231,7 +236,6 @@ public class EscalonadorTest {
 				"P1: Executando, Tick: 11, Quantum: 4\n" + 
 				"P2: Esperando, Tick: 11, Quantum: 4\n";
 		
-		System.out.println(escalonador.getStatus());
 		assertEquals(escalonador.getStatus(), resultado);
 		
 	}
