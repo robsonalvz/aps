@@ -180,9 +180,12 @@ public class EscalonadorTest {
 		
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
 				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
-				"P2: Executando, Tick: 1, Quantum: 2\n";
+				"P1: Executando, Tick: 1, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 1, Quantum: 2\n" + 
+				"P1: Executando, Tick: 2, Quantum: 2\n" + 
+				"P1: Executando, Tick: 3, Quantum: 2\n";
 		
-		//assertEquals(escalonador.getStatus(), resultado);
+		assertEquals(escalonador.getStatus(), resultado);
 	}
 
 	// T9 Com concorr�ncia, Processo finaliza quando estava esperando. Quando o
