@@ -239,14 +239,59 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 		
 	}
+	
 
 	
 
 	// T10 T5 com Quantum n�o Default
 
 	// T11 Dois Processos com intervalo no meio:
+	
 
-	// T12 A partir de T6, o processo Executando Bloqueia:
+	
+	@Test
+	public void processoExecutandoBloqueado() {
+		// T12 A partir de T6, o processo Executando Bloqueia:
+		
+		Processo p1 = new Processo("P1",0);
+		escalonador.adicionarProcesso(p1);
+		Processo p2 = new Processo("P2", 0);
+		escalonador.adicionarProcesso(p2);
+		Processo p3 = new Processo("P3", 0);
+		escalonador.adicionarProcesso(p3);
+
+		
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		escalonador.bloqueiaProcesso(p1);
+		
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		
+		
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P1: Executando, Tick: 1, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 1, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 1, Quantum: 2\n" + 
+				"P1: Bloqueado, Tick: 2, Quantum: 2\n" + 
+				"P2: Executando, Tick: 2, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 2, Quantum: 2\n" + 
+				"P2: Executando, Tick: 3, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 3, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 4, Quantum: 2\n" + 
+				"P3: Executando, Tick: 4, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 5, Quantum: 2\n" + 
+				"P3: Executando, Tick: 5, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);		
+		
+		
+	}
 
 	// T13 A partir de T12, P1 � retomado quando P2 est� executando:
 

@@ -100,7 +100,7 @@ public class Escalonador {
 					addStatus(processo);
 				} else {
 					processo.setStatus(Status.Esperando);
-					addStatus(processo);
+					addStatus(processo);	
 				}
 			}
 	}
@@ -133,14 +133,16 @@ public class Escalonador {
 					}
 				
 				}
-			}
-	
-		
+			}	
 	}
 	
 	public void setQuantum(int quantum) {
 		this.quantum = quantum;
 	}
-	
+	public void bloqueiaProcesso(Processo p) {
+		p.setStatus(Status.Bloqueado);
+		this.addStatus(p);
+		this.removerProcesso(p);
+	}
 
 }
