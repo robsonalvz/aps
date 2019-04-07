@@ -95,6 +95,10 @@ public class Escalonador {
 	
 	public void rodar() {
 		for (Processo processo : this.processos) {
+				
+			if(processo.getStatus().equals(Status.Bloqueado)) {
+				this.addStatus(processo);
+			}else {
 				if (escalonadorLivre(processo)) {
 					processo.setStatus(Status.Executando);
 					addStatus(processo);
@@ -102,6 +106,8 @@ public class Escalonador {
 					processo.setStatus(Status.Esperando);
 					addStatus(processo);	
 				}
+			}
+				
 			}
 	}
 	
@@ -139,10 +145,13 @@ public class Escalonador {
 	public void setQuantum(int quantum) {
 		this.quantum = quantum;
 	}
+	
 	public void bloqueiaProcesso(Processo p) {
 		p.setStatus(Status.Bloqueado);
-		this.addStatus(p);
-		this.removerProcesso(p);
+	}
+	
+	public void desbloquearProcesso(Processo p) {
+		p.setStatus(Status.Esperando);
 	}
 
 }
