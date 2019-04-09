@@ -17,6 +17,13 @@ public class Processo {
 	}
 
 
+	@Override
+	public String toString() {
+		return "Processo [nome=" + nome + ", status=" + status + ", tickAtual=" + tickAtual + ", tickInicial="
+				+ tickInicial + "]";
+	}
+
+
 	public Processo(String nome, int tick) {
 		this.nome = nome;
 		this.status = Status.Esperando;

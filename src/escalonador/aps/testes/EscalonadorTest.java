@@ -199,7 +199,7 @@ public class EscalonadorTest {
 		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
 		p1.setStatus(Status.Esperando);
 		
-		escalonador.adicionarProcesso(p1);
+		escalonador.adicionarProcesso(p1); 	
 		escalonador.tick();
 		escalonador.adicionarProcesso(p2);
 		
