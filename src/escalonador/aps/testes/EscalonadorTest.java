@@ -190,8 +190,25 @@ public class EscalonadorTest {
 
 	// T10 T5 com Quantum n�o Default
 
+	public void intervaloEntreProcessos() {
+	
 	// T11 Dois Processos com intervalo no meio:
-
+	
+		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
+		p1.setStatus(Status.Executando);
+		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
+		p1.setStatus(Status.Esperando);
+		
+		escalonador.adicionarProcesso(p1);
+		escalonador.tick();
+		escalonador.adicionarProcesso(p2);
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\\n" +
+					"P2: Esperando, Tick: 1, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);
+	}
+	
 	// T12 A partir de T6, o processo Executando Bloqueia:
 
 	// T13 A partir de T12, P1 � retomado quando P2 est� executando:
