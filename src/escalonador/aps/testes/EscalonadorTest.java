@@ -338,10 +338,51 @@ public class EscalonadorTest {
 		
 		assertEquals(escalonador.getStatus(), resultado);	
 	}
+	
+	@Test
+	public void bloqueandoProcessoeMudandoOrdem() {
 
-	// T13 A partir de T12, P1 � retomado quando P2 est� executando:
-
-	// T14 Os Tr�s Processos Bloqueiam e retomam na ordem P2, P1, P3 e o quantum
-	// funciona nesta nova ordem:
+		// T14 Os Tr�s Processos Bloqueiam e retomam na ordem P2, P1, P3 e o quantum
+		// funciona nesta nova ordem:
+		
+		Processo p1 = new Processo("P1",0);
+		escalonador.adicionarProcesso(p1);
+		Processo p2 = new Processo("P2", 0);
+		escalonador.adicionarProcesso(p2);
+		Processo p3 = new Processo("P3", 0);
+		escalonador.adicionarProcesso(p3);
+		
+		escalonador.tick();
+		escalonador.bloqueiaProcesso(p1);
+		escalonador.bloqueiaProcesso(p2);
+		escalonador.bloqueiaProcesso(p3);
+		
+		escalonador.trocarOrdemExecucao(p2,p1);
+		escalonador.tick();
+		escalonador.desbloquearProcesso(p1);
+		escalonador.desbloquearProcesso(p2);
+		escalonador.desbloquearProcesso(p3);
+		escalonador.estourarQuantum(escalonador.getQuantum());
+		escalonador.tick();
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P2: Bloqueado, Tick: 1, Quantum: 2\n" + 
+				"P1: Bloqueado, Tick: 1, Quantum: 2\n" + 
+				"P3: Bloqueado, Tick: 1, Quantum: 2\n" + 
+				"P2: Executando, Tick: 2, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 2, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 2, Quantum: 2\n" + 
+				"P2: Executando, Tick: 3, Quantum: 2\n" + 
+				"P1: Esperando, Tick: 3, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 3, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 4, Quantum: 2\n" + 
+				"P1: Executando, Tick: 4, Quantum: 2\n" + 
+				"P3: Esperando, Tick: 4, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);	
+	}
+	
 
 }

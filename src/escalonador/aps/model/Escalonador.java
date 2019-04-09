@@ -79,9 +79,6 @@ public class Escalonador {
 				+ (", Quantum: " + this.getQuantum()) + "\n";
 	}
 
-	public String getSaida(Processo processo) {
-		return processo.getNome() + ": " + processo.getStatus(); 
-	}
 	
 	public boolean escalonadorLivre(Processo processo) {
 		for (Processo p : this.processos) {
@@ -152,6 +149,15 @@ public class Escalonador {
 	
 	public void desbloquearProcesso(Processo p) {
 		p.setStatus(Status.Esperando);
+	}
+	
+	public void trocarOrdemExecucao(Processo in, Processo out) {
+		
+		int indexIn = this.processos.indexOf(in);
+		int indexOut = this.processos.indexOf(out);
+		
+		this.processos.set(indexOut, in);
+		this.processos.set(indexIn, out);
 	}
 
 }
