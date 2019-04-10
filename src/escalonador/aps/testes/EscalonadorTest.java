@@ -317,6 +317,19 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 	}
 
-
+	@Test(expected = SemPrioridadeException.class)
+	public void testeExcecao() throws SemPrioridadeException {
+		escalonador.setPrioridade(true);
+		Processo p1 = new Processo("P1", 0);
+		escalonador.adicionarProcessoComPrioridade(p1);
+	}
+	@Test
+	public void testeSemProcesso(){
+		try {
+			testeExcecao();
+		} catch (SemPrioridadeException e) {
+			testeEscalonadorVazio();
+		}
+	}
 
 }

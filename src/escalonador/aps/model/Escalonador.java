@@ -35,7 +35,7 @@ public class Escalonador {
 	public void adicionarProcessoComPrioridade(Processo processo) throws SemPrioridadeException {
 		if (isPrioridade()) {
 			if (processo.getPrioridade()==-1) {
-				throw new SemPrioridadeException();
+				throw new SemPrioridadeException("Processo adicionado está sem prioridade.");
 			}
 		}
 		this.processos.add(processo);
