@@ -7,8 +7,15 @@ public class Processo {
 	private int tickAtual;
 	private int tickInicial;
 	private int prioridade;
+
+	public Processo(String nome, int tick) {
+		this.nome = nome;
+		this.status = Status.Esperando;
+		this.tickInicial = tick;
+		this.prioridade = -1;
+	}
 	
-	public Processo(String nome,Status status, int tickAtual, int tickInicial) {
+	public Processo(String nome, Status status, int tickAtual, int tickInicial) {
 
 		this.nome = nome;
 		this.status = status;
@@ -16,7 +23,8 @@ public class Processo {
 		this.tickInicial = tickInicial;
 
 	}
-	public Processo(String nome,Status status, int tickAtual, int tickInicial, int prioridade) {
+
+	public Processo(String nome, Status status, int tickAtual, int tickInicial, int prioridade) {
 
 		this.nome = nome;
 		this.status = status;
@@ -24,26 +32,22 @@ public class Processo {
 		this.tickInicial = tickInicial;
 		this.prioridade = prioridade;
 	}
-	
+
 	public int getPrioridade() {
 		return prioridade;
 	}
+
 	public void setPrioridade(int prioridade) {
 		this.prioridade = prioridade;
 	}
+
 	@Override
 	public String toString() {
 		return "Processo [nome=" + nome + ", status=" + status + ", tickAtual=" + tickAtual + ", tickInicial="
 				+ tickInicial + "]";
 	}
 
-
-	public Processo(String nome, int tick) {
-		this.nome = nome;
-		this.status = Status.Esperando;
-		this.tickInicial = tick;
-		this.prioridade =-1;
-	}
+	
 
 	public String getNome() {
 		return nome;

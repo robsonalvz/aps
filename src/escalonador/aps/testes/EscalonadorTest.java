@@ -316,7 +316,11 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-
+	
+	/**
+	 * Teste escalonador com prioridade e processo sem prioridade
+	 * @throws SemPrioridadeException
+	 */
 	@Test(expected = SemPrioridadeException.class)
 	public void testeExcecao() throws SemPrioridadeException {
 		escalonador.setPrioridade(true);
@@ -324,12 +328,37 @@ public class EscalonadorTest {
 		escalonador.adicionarProcessoComPrioridade(p1);
 	}
 	@Test
-	public void testeSemProcesso(){
+	public void testeSemProcessoPrioridade(){
 		try {
 			testeExcecao();
 		} catch (SemPrioridadeException e) {
 			testeEscalonadorVazio();
 		}
+	}
+	/**
+	 * Teste 16 com prioridade com processo normal
+	 */
+	@Test
+	public void testeComProcessoPrioridade(){
+		escalonador.setPrioridade(true);
+		Processo p1 = new Processo("P1",0);
+		p1.setPrioridade(3);
+		escalonador.adicionarProcessoComPrioridade(p1);
+		escalonador.tick();
+		assertEquals("P1: Executando, Tick: 0, Quantum: 2\n", escalonador.getStatus());
+		assertEquals(p1.getStatus(), Status.Executando);
+	}
+	/**
+	 * 
+	 * Teste 17 finalizando processe a partir do teste 16
+	 */
+	@Test
+	public void testeFinalizarProcessoPrioridade(){
+		testeComProcessoPrioridade();
+		Processo p1 = escalonador.getProcessoByName("P1");
+		escalonador.finalizarProcesso(p1);
+		escalonador.tick();
+		testeEscalonadorVazio();
 	}
 
 }
