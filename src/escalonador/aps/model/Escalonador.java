@@ -2,6 +2,9 @@
 package escalonador.aps.model;
 
 import java.util.List;
+
+import escalonador.aps.exceptions.SemPrioridadeException;
+
 import java.util.Collections;
 import java.util.ArrayList;
 
@@ -10,18 +13,33 @@ public class Escalonador {
 	private int quantum;
 	private List<Processo> processos;
 	private String status;
-
+	private boolean prioridade;
+	
 	public Escalonador() {
 		this.tick = 0;
 		this.quantum = 2;
 		this.status = "";
 		this.processos = new ArrayList<>();
 	}
-
+	public boolean isPrioridade() {
+		return this.prioridade;
+	}
+	public void setPrioridade(boolean prioridade) {
+		this.prioridade = prioridade;
+	}
+	
 	public void adicionarProcesso(Processo processo) {
 		this.processos.add(processo);
 	}
-
+	
+	public void adicionarProcessoComPrioridade(Processo processo) throws SemPrioridadeException {
+		if (isPrioridade()) {
+			if (processo.getPrioridade()==-1) {
+				throw new SemPrioridadeException();
+			}
+		}
+		this.processos.add(processo);
+	}
 	public void finalizarProcesso(Processo processo) {
 		processo.setStatus(Status.Finalizado);
 		removerProcesso(processo);
