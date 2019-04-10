@@ -1,12 +1,10 @@
 
 package escalonador.aps.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import escalonador.aps.exceptions.SemPrioridadeException;
-
-import java.util.Collections;
-import java.util.ArrayList;
 
 public class Escalonador {
 	private int tick;

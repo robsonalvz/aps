@@ -1,6 +1,6 @@
 package escalonador.aps.testes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,20 +8,21 @@ import org.junit.Test;
 import escalonador.aps.exceptions.SemPrioridadeException;
 import escalonador.aps.model.Escalonador;
 import escalonador.aps.model.Processo;
-
 import escalonador.aps.model.Status;
-import jdk.Exported;
 
 public class EscalonadorTest {
 
 	private Escalonador escalonador;
-
+	
+	/**
+	 * Inicialização de uma instancia do escalonador para todos os testes
+	 */
 	@Before
 	public void init() {
 		escalonador = new Escalonador();
 	}
 
-	/*
+	/**
 	 * Teste 1 Escalonador vazio Status -> Nenhum processo Tick: 0 Quantim : default
 	 */
 	@Test
@@ -30,7 +31,7 @@ public class EscalonadorTest {
 		assertEquals("Nenhum processo", status);
 	}
 
-	/*
+	/**
 	 * Teste 2 Verificar se o tick está incrementando
 	 */
 	@Test
@@ -52,7 +53,9 @@ public class EscalonadorTest {
 		assertEquals(p.getStatus(), Status.Executando);
 
 	}
-
+	/**
+	 * Teste finalizar processo e verificar se o escalonador esta vazio
+	 */
 	@Test
 	public void testeFinalizarProcesso() {
 		testeUmProcessoTickZero();
@@ -63,8 +66,9 @@ public class EscalonadorTest {
 
 	}
 
-	// T4 A Partir do T3, Finalizar P1:
-
+	/**
+	 * Teste 4 A Partir do T3, Finalizar P1:
+	 */
 	@Test
 	public void criarDoisProcessosNoTick() {
 
@@ -91,11 +95,11 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 
 	}
-
+	/**
+	 * Teste 6 Cria tres processos no mesmo Tick e roda;
+	 */
 	@Test
 	public void criarTresProcessosNoTick() {
-
-		// T6: Cria tres processos no mesmo Tick e roda;
 
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
@@ -122,13 +126,12 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-
+	/**
+	 * Teste 8 com concorr�ncia o processo finaliza quando estava executando. E no 
+	 *  proximo Tick o segundo processo passa para CPU;
+	 */
 	@Test
 	public void comConcorrenciaProcessoFinalizaExecutando() {
-
-		// T8: Com concorr�ncia o processo finaliza quando estava executando. E no
-		// pr�ximo Tick o segundo processo passa para CPU;
-
 		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
 		p1.setStatus(Status.Executando);
 		Processo p2 = new Processo("P2", Status.Esperando, 0, 0);
@@ -145,12 +148,14 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-
+	/**
+	 * Teste 9 Com concorrencia o processo finaliza quando estava esperando. E o
+	 * primeiro processo nao perde a CPU;
+	 */
 	@Test
 	public void comConcorrenciaProcessoFinalizaEsperando() {
 
-		// T9: Com concorr�ncia o processo finaliza quando estava esperando. E o
-		// primeiro processo n�o perde a CPU;
+		
 
 		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
 		p1.setStatus(Status.Executando);
@@ -169,11 +174,12 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-
+	
+	/**
+	 * Teste 10 Cria dois processos no mesmo Tick e roda escolhendo o quantum;
+	 */
 	@Test
 	public void criarDoisProcessosNoTickSemQuantumDefault() {
-
-		// T10: Cria dois processos no mesmo Tick e roda escolhendo o quantum;
 
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
@@ -208,11 +214,12 @@ public class EscalonadorTest {
 	// T10 T5 com Quantum n�o Default
 
 	// T11 Dois Processos com intervalo no meio:
-
+	/**
+	 * Teste 12 A partir de T6, o processo Executando Bloqueia:
+	 */
 	@Test
 	public void processoExecutandoBloqueado() {
-		// T12 A partir de T6, o processo Executando Bloqueia:
-
+	
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
 		Processo p2 = new Processo("P2", 0);
@@ -241,10 +248,11 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 
 	}
-
+	/**
+	 * Teste 13 A partir de T12, P1 é retomado quando P2 esta executando:
+	 */
 	@Test
 	public void desbloqueandoProcesso() {
-		// T13 A partir de T12, P1 � retomado quando P2 est� executando:
 
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
@@ -278,13 +286,11 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-
+	/**
+	 * Teste 14 Os Tres Processos Bloqueiam e retomam na ordem P2, P1, P3 e o quantum
+	 */
 	@Test
 	public void bloqueandoProcessoeMudandoOrdem() {
-
-		// T14 Os Tr�s Processos Bloqueiam e retomam na ordem P2, P1, P3 e o quantum
-		// funciona nesta nova ordem:
-
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
 		Processo p2 = new Processo("P2", 0);
