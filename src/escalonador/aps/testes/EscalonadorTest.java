@@ -13,7 +13,7 @@ import escalonador.aps.model.Status;
 public class EscalonadorTest {
 
 	private Escalonador escalonador;
-	
+
 	/**
 	 * Inicialização de uma instancia do escalonador para todos os testes
 	 */
@@ -23,7 +23,8 @@ public class EscalonadorTest {
 	}
 
 	/**
-	 * Teste 1 Escalonador vazio Status -> Nenhum processo Tick: 0 Quantim : default
+	 * Teste 1 Escalonador vazio Status -> Nenhum processo Tick: 0 Quantim :
+	 * default
 	 */
 	@Test
 	public void testeEscalonadorVazio() {
@@ -41,8 +42,8 @@ public class EscalonadorTest {
 	}
 
 	/*
-	 * Teste 3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1 continua
-	 * executando:
+	 * Teste 3 Adicionar Processo P1 no Tick 0, Chamar o Tick e ver se P1
+	 * continua executando:
 	 */
 	@Test
 	public void testeUmProcessoTickZero() {
@@ -53,6 +54,7 @@ public class EscalonadorTest {
 		assertEquals(p.getStatus(), Status.Executando);
 
 	}
+
 	/**
 	 * Teste finalizar processo e verificar se o escalonador esta vazio
 	 */
@@ -95,6 +97,7 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 
 	}
+
 	/**
 	 * Teste 6 Cria tres processos no mesmo Tick e roda;
 	 */
@@ -126,9 +129,10 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+
 	/**
-	 * Teste 8 com concorr�ncia o processo finaliza quando estava executando. E no 
-	 *  proximo Tick o segundo processo passa para CPU;
+	 * Teste 8 com concorr�ncia o processo finaliza quando estava executando. E
+	 * no proximo Tick o segundo processo passa para CPU;
 	 */
 	@Test
 	public void comConcorrenciaProcessoFinalizaExecutando() {
@@ -148,14 +152,13 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+
 	/**
 	 * Teste 9 Com concorrencia o processo finaliza quando estava esperando. E o
 	 * primeiro processo nao perde a CPU;
 	 */
 	@Test
 	public void comConcorrenciaProcessoFinalizaEsperando() {
-
-		
 
 		Processo p1 = new Processo("P1", Status.Executando, 0, 0);
 		p1.setStatus(Status.Executando);
@@ -174,7 +177,7 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-	
+
 	/**
 	 * Teste 10 Cria dois processos no mesmo Tick e roda escolhendo o quantum;
 	 */
@@ -219,7 +222,7 @@ public class EscalonadorTest {
 	 */
 	@Test
 	public void processoExecutandoBloqueado() {
-	
+
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
 		Processo p2 = new Processo("P2", 0);
@@ -248,6 +251,7 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 
 	}
+
 	/**
 	 * Teste 13 A partir de T12, P1 é retomado quando P2 esta executando:
 	 */
@@ -286,8 +290,10 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+
 	/**
-	 * Teste 14 Os Tres Processos Bloqueiam e retomam na ordem P2, P1, P3 e o quantum
+	 * Teste 14 Os Tres Processos Bloqueiam e retomam na ordem P2, P1, P3 e o
+	 * quantum
 	 */
 	@Test
 	public void bloqueandoProcessoeMudandoOrdem() {
@@ -322,9 +328,10 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-	
+
 	/**
 	 * Teste escalonador com prioridade e processo sem prioridade
+	 * 
 	 * @throws SemPrioridadeException
 	 */
 	@Test(expected = SemPrioridadeException.class)
@@ -333,49 +340,53 @@ public class EscalonadorTest {
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcessoComPrioridade(p1);
 	}
+
 	@Test
-	public void testeSemProcessoPrioridade(){
+	public void testeSemProcessoPrioridade() {
 		try {
 			testeExcecao();
 		} catch (SemPrioridadeException e) {
 			testeEscalonadorVazio();
 		}
 	}
+
 	/**
 	 * Teste 16 com prioridade com processo normal
 	 */
 	@Test
-	public void testeComProcessoPrioridade(){
+	public void testeComProcessoPrioridade() {
 		escalonador.setPrioridade(true);
-		Processo p1 = new Processo("P1",0);
+		Processo p1 = new Processo("P1", 0);
 		p1.setPrioridade(3);
 		escalonador.adicionarProcessoComPrioridade(p1);
 		escalonador.tick();
 		assertEquals("P1: Executando, Tick: 0, Quantum: 2\n", escalonador.getStatus());
 		assertEquals(p1.getStatus(), Status.Executando);
 	}
+
 	/**
 	 * 
 	 * Teste 17 finalizando processe a partir do teste 16
 	 */
 	@Test
-	public void testeFinalizarProcessoPrioridade(){
+	public void testeFinalizarProcessoPrioridade() {
 		testeComProcessoPrioridade();
 		Processo p1 = escalonador.getProcessoByName("P1");
 		escalonador.finalizarProcesso(p1);
 		escalonador.tick();
 		testeEscalonadorVazio();
 	}
+
 	/**
 	 * Teste 18 com dois processos com prioridade 1
 	 */
 	@Test
-	public void testeDoisProcessosPrioridade(){
-		
+	public void testeDoisProcessosPrioridade() {
+
 		escalonador.setPrioridade(true);
-		Processo p1 = new Processo("P1", 0,1);
+		Processo p1 = new Processo("P1", 0, 1);
 		escalonador.adicionarProcessoComPrioridade(p1);
-		Processo p2 = new Processo("P2", 0,1);
+		Processo p2 = new Processo("P2", 0, 1);
 		escalonador.adicionarProcessoComPrioridade(p2);
 
 		escalonador.estourarQuantum(escalonador.getQuantum());
@@ -393,7 +404,5 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-	
-	
 
 }
