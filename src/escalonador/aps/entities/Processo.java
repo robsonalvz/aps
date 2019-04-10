@@ -1,4 +1,4 @@
-package escalonador.aps.model;
+package escalonador.aps.entities;
 
 public class Processo {
 

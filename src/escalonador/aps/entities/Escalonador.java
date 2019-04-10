@@ -1,5 +1,5 @@
 
-package escalonador.aps.model;
+package escalonador.aps.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,14 +129,7 @@ public class Escalonador {
 		this.tick += 1;
 	}
 	
-	public void estourarQuantum(int quantum) {
 	
-		for(int i = 0; i < quantum; i++) {
-			tick();
-		}
-		mudarStatus();
-
-	}
 	
 	public void mudarStatus() {
 		if(quantumEstourado()) {

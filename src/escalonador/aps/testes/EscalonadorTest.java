@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import escalonador.aps.entities.Escalonador;
+import escalonador.aps.entities.Processo;
+import escalonador.aps.entities.Status;
 import escalonador.aps.exceptions.SemPrioridadeException;
-import escalonador.aps.model.Escalonador;
-import escalonador.aps.model.Processo;
-import escalonador.aps.model.Status;
 
 public class EscalonadorTest {
 
@@ -21,7 +21,18 @@ public class EscalonadorTest {
 	public void init() {
 		escalonador = new Escalonador();
 	}
+	/**
+	 * Método para estourar o tick até o quantum
+	 * @param quantum
+	 */
+	public void estourarQuantum(int quantum) {
+		
+		for(int i = 0; i < quantum; i++) {
+			escalonador.tick();
+		}
+		escalonador.mudarStatus();
 
+	}
 	/**
 	 * Teste 1 Escalonador vazio Status -> Nenhum processo Tick: 0 Quantim :
 	 * default
@@ -81,11 +92,11 @@ public class EscalonadorTest {
 		Processo p2 = new Processo("P2", 0);
 		escalonador.adicionarProcesso(p2);
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P1: Executando, Tick: 1, Quantum: 2\n" + "P2: Esperando, Tick: 1, Quantum: 2\n"
@@ -111,11 +122,11 @@ public class EscalonadorTest {
 		Processo p3 = new Processo("P3", 0);
 		escalonador.adicionarProcesso(p3);
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P3: Esperando, Tick: 0, Quantum: 2\n" + "P1: Executando, Tick: 1, Quantum: 2\n"
@@ -167,9 +178,9 @@ public class EscalonadorTest {
 
 		escalonador.adicionarProcesso(p1);
 		escalonador.adicionarProcesso(p2);
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 		escalonador.finalizarProcesso(p2);
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P1: Executando, Tick: 1, Quantum: 2\n" + "P2: Esperando, Tick: 1, Quantum: 2\n"
@@ -191,11 +202,11 @@ public class EscalonadorTest {
 
 		escalonador.setQuantum(4);
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 4\n" + "P2: Esperando, Tick: 0, Quantum: 4\n"
 				+ "P1: Executando, Tick: 1, Quantum: 4\n" + "P2: Esperando, Tick: 1, Quantum: 4\n"
@@ -230,13 +241,13 @@ public class EscalonadorTest {
 		Processo p3 = new Processo("P3", 0);
 		escalonador.adicionarProcesso(p3);
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		escalonador.bloqueiaProcesso(p1);
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P3: Esperando, Tick: 0, Quantum: 2\n" + "P1: Executando, Tick: 1, Quantum: 2\n"
@@ -277,7 +288,7 @@ public class EscalonadorTest {
 
 		escalonador.mudarStatus();
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P3: Esperando, Tick: 0, Quantum: 2\n" + "P1: Bloqueado, Tick: 1, Quantum: 2\n"
@@ -314,7 +325,7 @@ public class EscalonadorTest {
 		escalonador.desbloquearProcesso(p1);
 		escalonador.desbloquearProcesso(p2);
 		escalonador.desbloquearProcesso(p3);
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 		escalonador.tick();
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
@@ -389,11 +400,11 @@ public class EscalonadorTest {
 		Processo p2 = new Processo("P2", 0, 1);
 		escalonador.adicionarProcessoComPrioridade(p2);
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
-		escalonador.estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P1: Executando, Tick: 1, Quantum: 2\n" + "P2: Esperando, Tick: 1, Quantum: 2\n"
