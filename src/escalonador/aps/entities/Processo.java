@@ -109,5 +109,5 @@ public class Processo {
 	public void setTickInicial(int tickInicial) {
 		this.tickInicial = tickInicial;
 	}
-
+	
 }

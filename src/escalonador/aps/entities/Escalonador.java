@@ -27,9 +27,6 @@ public class Escalonador {
 		this.prioridade = prioridade;
 	}
 	
-	public boolean getPrioridade() {
-		return this.prioridade;
-	}
 	
 	public void adicionarProcesso(Processo processo) {
 		this.processos.add(processo);
@@ -187,6 +184,15 @@ public class Escalonador {
 		
 		this.processos.set(indexOut, in);
 		this.processos.set(indexIn, out);
+	}
+	
+	public void maiorPrioridade() {
+		Processo po = this.processos.get(0);
+		for(Processo p : this.processos) {
+			if(p.getPrioridade() < po.getPrioridade()) {
+				po = p;
+			}
+		}
 	}
 
 }
