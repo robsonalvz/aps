@@ -8,13 +8,35 @@ public class Processo {
 	private int tickInicial;
 	private int prioridade;
 
+	/**
+	 * 
+	 * @param nome
+	 * @param tick
+	 * @param prioridade
+	 */
+	public Processo(String nome, int tick, int prioridade){
+		this.nome=nome;
+		this.prioridade=prioridade;
+		this.status = Status.Esperando;
+	}
+	/**
+	 * 
+	 * @param nome
+	 * @param tick
+	 */
 	public Processo(String nome, int tick) {
 		this.nome = nome;
 		this.status = Status.Esperando;
 		this.tickInicial = tick;
 		this.prioridade = -1;
 	}
-	
+	/**
+	 * 
+	 * @param nome
+	 * @param status
+	 * @param tickAtual
+	 * @param tickInicial
+	 */
 	public Processo(String nome, Status status, int tickAtual, int tickInicial) {
 
 		this.nome = nome;
@@ -23,7 +45,14 @@ public class Processo {
 		this.tickInicial = tickInicial;
 
 	}
-
+	/**
+	 * 
+	 * @param nome
+	 * @param status
+	 * @param tickAtual
+	 * @param tickInicial
+	 * @param prioridade
+	 */
 	public Processo(String nome, Status status, int tickAtual, int tickInicial, int prioridade) {
 
 		this.nome = nome;

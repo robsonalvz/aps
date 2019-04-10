@@ -17,7 +17,7 @@ public class EscalonadorTest {
 	private Escalonador escalonador;
 
 	@Before
-	public void criarEscalonador() {
+	public void init() {
 		escalonador = new Escalonador();
 	}
 
@@ -360,5 +360,34 @@ public class EscalonadorTest {
 		escalonador.tick();
 		testeEscalonadorVazio();
 	}
+	/**
+	 * Teste 18 com dois processos com prioridade 1
+	 */
+	@Test
+	public void testeDoisProcessosPrioridade(){
+		
+		escalonador.setPrioridade(true);
+		Processo p1 = new Processo("P1", 0,1);
+		escalonador.adicionarProcessoComPrioridade(p1);
+		Processo p2 = new Processo("P2", 0,1);
+		escalonador.adicionarProcessoComPrioridade(p2);
+
+		escalonador.estourarQuantum(escalonador.getQuantum());
+
+		escalonador.estourarQuantum(escalonador.getQuantum());
+
+		escalonador.estourarQuantum(escalonador.getQuantum());
+
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
+				+ "P1: Executando, Tick: 1, Quantum: 2\n" + "P2: Esperando, Tick: 1, Quantum: 2\n"
+				+ "P1: Esperando, Tick: 2, Quantum: 2\n" + "P2: Executando, Tick: 2, Quantum: 2\n"
+				+ "P1: Esperando, Tick: 3, Quantum: 2\n" + "P2: Executando, Tick: 3, Quantum: 2\n"
+				+ "P1: Executando, Tick: 4, Quantum: 2\n" + "P2: Esperando, Tick: 4, Quantum: 2\n"
+				+ "P1: Executando, Tick: 5, Quantum: 2\n" + "P2: Esperando, Tick: 5, Quantum: 2\n";
+
+		assertEquals(escalonador.getStatus(), resultado);
+	}
+	
+	
 
 }
