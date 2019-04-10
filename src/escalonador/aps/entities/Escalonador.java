@@ -27,6 +27,10 @@ public class Escalonador {
 		this.prioridade = prioridade;
 	}
 	
+	public boolean getPrioridade() {
+		return this.prioridade;
+	}
+	
 	public void adicionarProcesso(Processo processo) {
 		this.processos.add(processo);
 	}
@@ -141,6 +145,10 @@ public class Escalonador {
 			this.tick += 1;
 			this.cont += 1;
 		}
+	}
+	
+	public void tickComPrioridade() {
+		
 	}
 	
 	public void mudarStatus() {
