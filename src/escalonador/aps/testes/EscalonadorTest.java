@@ -104,6 +104,7 @@ public class EscalonadorTest {
 				+ "P1: Esperando, Tick: 3, Quantum: 2\n" + "P2: Executando, Tick: 3, Quantum: 2\n"
 				+ "P1: Executando, Tick: 4, Quantum: 2\n" + "P2: Esperando, Tick: 4, Quantum: 2\n"
 				+ "P1: Executando, Tick: 5, Quantum: 2\n" + "P2: Esperando, Tick: 5, Quantum: 2\n";
+		System.out.println(escalonador.getStatus());
 
 		assertEquals(escalonador.getStatus(), resultado);
 
@@ -157,6 +158,8 @@ public class EscalonadorTest {
 		escalonador.tick();
 		escalonador.finalizarProcesso(p1);
 		escalonador.tick();
+		
+		System.out.println(escalonador.getStatus());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P2: Executando, Tick: 1, Quantum: 2\n";
@@ -181,6 +184,7 @@ public class EscalonadorTest {
 		estourarQuantum(escalonador.getQuantum());
 		escalonador.finalizarProcesso(p2);
 		estourarQuantum(escalonador.getQuantum());
+		System.out.println(escalonador.getStatus());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P1: Executando, Tick: 1, Quantum: 2\n" + "P2: Esperando, Tick: 1, Quantum: 2\n"
@@ -225,9 +229,33 @@ public class EscalonadorTest {
 
 	}
 
-	// T10 T5 com Quantum n�o Default
+
 
 	// T11 Dois Processos com intervalo no meio:
+	
+	@Test
+	public void doisProcessosComIntervalo() {
+		Processo p1 = new Processo("P1", 0);
+		escalonador.adicionarProcesso(p1);
+		escalonador.tick();
+		escalonador.finalizarProcesso(p1);
+		
+		assertEquals(escalonador.getStatus(), "Nenhum processo\n");
+		
+		Processo p2 = new Processo("P2", 0);
+		escalonador.adicionarProcesso(p2);
+		escalonador.tick();
+		System.out.println(escalonador.getStatus());
+		String resultado = "Nenhum processo\n" + 
+				"P2: Executando, Tick: 1, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);
+		
+		
+	}
+	
+	
+	
 	/**
 	 * Teste 12 A partir de T6, o processo Executando Bloqueia:
 	 */

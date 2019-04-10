@@ -58,7 +58,7 @@ public class Escalonador {
 
 	public String getStatus() {
 		if (this.processos.size() == 0) {
-			this.status = "Nenhum processo";
+			this.status = "Nenhum processo\n";
 		}
 		return status;
 	}
