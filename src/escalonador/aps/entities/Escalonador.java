@@ -12,6 +12,7 @@ public class Escalonador {
 	private List<Processo> processos;
 	private String status;
 	private boolean prioridade;
+	private int cont = 0;
 	
 	public Escalonador() {
 		this.tick = 0;
@@ -129,7 +130,18 @@ public class Escalonador {
 		this.tick += 1;
 	}
 	
-	
+	public void tickS() {
+		
+		if(this.cont == this.quantum) {
+			this.cont = this.cont % this.quantum;
+			this.mudarStatus();
+			
+		}else {
+			rodar();
+			this.tick += 1;
+			this.cont += 1;
+		}
+	}
 	
 	public void mudarStatus() {
 		if(quantumEstourado()) {

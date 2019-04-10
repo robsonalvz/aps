@@ -40,7 +40,7 @@ public class EscalonadorTest {
 	@Test
 	public void testeEscalonadorVazio() {
 		String status = escalonador.getStatus();
-		assertEquals("Nenhum processo", status);
+		assertEquals("Nenhum processo\n", status);
 	}
 
 	/**
@@ -104,7 +104,6 @@ public class EscalonadorTest {
 				+ "P1: Esperando, Tick: 3, Quantum: 2\n" + "P2: Executando, Tick: 3, Quantum: 2\n"
 				+ "P1: Executando, Tick: 4, Quantum: 2\n" + "P2: Esperando, Tick: 4, Quantum: 2\n"
 				+ "P1: Executando, Tick: 5, Quantum: 2\n" + "P2: Esperando, Tick: 5, Quantum: 2\n";
-		System.out.println(escalonador.getStatus());
 
 		assertEquals(escalonador.getStatus(), resultado);
 
@@ -141,6 +140,33 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	/**
+	 * Teste 7, parecido com o T5 mas p2 só é criado no tick 3
+	 */
+	
+	@Test
+	public void criarDoisProcessosEmTickSeparados() {
+		Processo p1 = new Processo("P1", 0);
+		Processo p2 = new Processo("P2", 3);
+		
+		escalonador.adicionarProcesso(p1);
+		escalonador.tickS();
+		escalonador.tickS();
+		escalonador.tickS();
+		escalonador.tickS();
+		escalonador.adicionarProcesso(p2);
+		escalonador.tickS();
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" 
+				+ "P1: Executando, Tick: 1, Quantum: 2\n" 
+				+ "P1: Executando, Tick: 2, Quantum: 2\n"
+				+ "P1: Executando, Tick: 3, Quantum: 2\n"
+				+ "P2: Esperando, Tick: 3, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);
+	}
+	
 
 	/**
 	 * Teste 8 com concorrï¿½ncia o processo finaliza quando estava executando. E
@@ -159,7 +185,6 @@ public class EscalonadorTest {
 		escalonador.finalizarProcesso(p1);
 		escalonador.tick();
 		
-		System.out.println(escalonador.getStatus());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P2: Executando, Tick: 1, Quantum: 2\n";
@@ -184,7 +209,6 @@ public class EscalonadorTest {
 		estourarQuantum(escalonador.getQuantum());
 		escalonador.finalizarProcesso(p2);
 		estourarQuantum(escalonador.getQuantum());
-		System.out.println(escalonador.getStatus());
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
 				+ "P1: Executando, Tick: 1, Quantum: 2\n" + "P2: Esperando, Tick: 1, Quantum: 2\n"
@@ -245,7 +269,6 @@ public class EscalonadorTest {
 		Processo p2 = new Processo("P2", 0);
 		escalonador.adicionarProcesso(p2);
 		escalonador.tick();
-		System.out.println(escalonador.getStatus());
 		String resultado = "Nenhum processo\n" + 
 				"P2: Executando, Tick: 1, Quantum: 2\n";
 		
