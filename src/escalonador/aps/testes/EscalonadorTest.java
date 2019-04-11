@@ -1,6 +1,6 @@
 package escalonador.aps.testes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import escalonador.aps.entities.Processo;
 import escalonador.aps.entities.Status;
 import escalonador.aps.exceptions.ComPrioridadeExcepetion;
 import escalonador.aps.exceptions.SemPrioridadeException;
-import sun.security.krb5.internal.Ticket;
 
 public class EscalonadorTest {
 
