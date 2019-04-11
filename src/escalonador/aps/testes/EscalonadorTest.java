@@ -521,4 +521,28 @@ public class EscalonadorTest {
 		
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	@Test
+	/**
+	 * Teste 21 com concorr�ncia o processo finaliza quando estava executando. E
+	 * no proximo Tick o segundo processo passa para CPU, com prioridade;
+	 */
+	public void comConcorrenciaProcessoFinalizaExecutandoComPrioridade() {
+		Processo p1 = new Processo("P1", 0, 1);
+		p1.setStatus(Status.Executando);
+		Processo p2 = new Processo("P2", 0, 1);
+		p2.setStatus(Status.Esperando);
+
+		escalonador.adicionarProcessoComPrioridade(p1);
+		escalonador.adicionarProcessoComPrioridade(p2);
+		escalonador.tick();
+		escalonador.finalizarProcesso(p1);
+		escalonador.tick();
+		
+
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P2: Esperando, Tick: 0, Quantum: 2\n"
+				+ "P2: Executando, Tick: 1, Quantum: 2\n";
+
+		assertEquals(escalonador.getStatus(), resultado);
+	}
 }
