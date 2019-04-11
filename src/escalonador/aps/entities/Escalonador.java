@@ -4,6 +4,7 @@ package escalonador.aps.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import escalonador.aps.exceptions.ComPrioridadeExcepetion;
 import escalonador.aps.exceptions.SemPrioridadeException;
 
 public class Escalonador {
@@ -28,8 +29,12 @@ public class Escalonador {
 	}
 	
 	
-	public void adicionarProcesso(Processo processo) {
-		this.processos.add(processo);
+	public void adicionarProcesso(Processo processo) throws ComPrioridadeExcepetion {
+		if (processo.getPrioridade()==-1 && this.prioridade==false){
+			this.processos.add(processo);
+		}else{
+			throw new ComPrioridadeExcepetion("Processo com prioridade adicionado ao escalonador sem prioridade");
+		}
 	}
 	
 	public void adicionarProcessoComPrioridade(Processo processo) throws SemPrioridadeException {
