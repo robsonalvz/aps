@@ -192,10 +192,10 @@ public class Escalonador {
 		while(cont < this.processos.size()){
 			Processo po = this.processos.get(0);
 			for(Processo p : this.processos) {
-				if(p.getPrioridade() <= po.getPrioridade()) {
+				if(p.getPrioridade() < po.getPrioridade()) {
 					po = p;
 				}
-			}	
+			}
 			lista.add(po);
 			this.processos.remove(po);
 			cont += 1;		

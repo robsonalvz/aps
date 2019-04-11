@@ -499,5 +499,26 @@ public class EscalonadorTest {
 	/**
 	 * Teste 20, criar dois processos em quantum separado utilizando prioridade
 	 */
-	
+	@Test
+	public void doisProcessosEmTickSeparado() {
+		Processo p1 = new Processo("P1", 0, 1);
+		Processo p2 = new Processo("P2", 3, 1);
+		
+		escalonador.adicionarProcessoComPrioridade(p1);
+		escalonador.tickS();
+		escalonador.tickS();
+		escalonador.tickS();
+		escalonador.tickS();
+		escalonador.adicionarProcessoComPrioridade(p2);
+		escalonador.ordenaPorPrioridade();
+		escalonador.tickS();
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" 
+				+ "P1: Executando, Tick: 1, Quantum: 2\n" 
+				+ "P1: Executando, Tick: 2, Quantum: 2\n"
+				+ "P1: Executando, Tick: 3, Quantum: 2\n"
+				+ "P2: Esperando, Tick: 3, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);
+	}
 }
