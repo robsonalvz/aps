@@ -495,4 +495,26 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	// Teste 28 A partir de T 16 3 Ticks
+	
+	@Test
+	public void testeComProcessoPrioridadeMaisTicks() {
+		escalonador.setPrioridade(true);
+		Processo p1 = new Processo("P1", 0);
+		p1.setPrioridade(3);
+		escalonador.adicionarProcessoComPrioridade(p1);
+		escalonador.tick();
+		escalonador.tick();
+		escalonador.tick();
+		Processo p2 = new Processo("P2", 0);
+		p2.setPrioridade(1);
+		escalonador.adicionarProcessoComPrioridade(p2);
+		estourarQuantum(10);
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P1: Executando, Tick: 1, Quantum: 2\n"
+				+ "P1: Esperando, Tick: 2, Quantum: 2\n" +"P2: Executando, Tick: 2, Quantum: 2\n";
+		assertEquals(escalonador.getStatus(), resultado);
+	}
+
 }
