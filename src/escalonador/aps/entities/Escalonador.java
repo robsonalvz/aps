@@ -186,12 +186,28 @@ public class Escalonador {
 		this.processos.set(indexIn, out);
 	}
 	
-	public void maiorPrioridade() {
-		Processo po = this.processos.get(0);
+	public void ordenaPorPrioridade() {
+		int cont = 0;
+		List<Processo> lista = new ArrayList<Processo>();	
+		while(cont < this.processos.size()){
+			Processo po = this.processos.get(0);
+			for(Processo p : this.processos) {
+				if(p.getPrioridade() <= po.getPrioridade()) {
+					po = p;
+				}
+			}	
+			lista.add(po);
+			this.processos.remove(po);
+			cont += 1;		
+		}
+		lista.add(processos.get(0));
+		this.processos = lista;
+
+	}
+	
+	public void exibirPrioridade() {
 		for(Processo p : this.processos) {
-			if(p.getPrioridade() < po.getPrioridade()) {
-				po = p;
-			}
+			System.out.println(p.getNome());
 		}
 	}
 

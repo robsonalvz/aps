@@ -495,4 +495,9 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	/**
+	 * Teste 20, criar dois processos em quantum separado utilizando prioridade
+	 */
+	
 }
