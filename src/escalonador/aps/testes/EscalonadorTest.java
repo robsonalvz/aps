@@ -630,6 +630,25 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 	}
 	
+	@Test
+	public void testComBloqueioProcesso(){
+		Processo p1 = new Processo("P1",0,1);
+		escalonador.adicionarProcessoComPrioridade(p1);
+		Processo p2 = new Processo("P2",0,2);
+		escalonador.adicionarProcessoComPrioridade(p2);
+		escalonador.ordenaPorPrioridade();
+		escalonador.tick();
+		String resultado = ("P1: Executando, Tick: 0, Quantum: 2\n"+
+					"P2: Esperando, Tick: 0, Quantum: 2\n"+
+					"P1: Bloqueado, Tick: 1, Quantum: 2\n"+
+					"P2: Executando, Tick: 1, Quantum: 2\n");
+		escalonador.bloqueiaProcesso(p1);
+		escalonador.tick();
+		
+		assertEquals(resultado, escalonador.getStatus());
+		
+		
+	}
 
 
 }
