@@ -572,6 +572,42 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	/**
+	 * Teste 23 esse teste cria dois processos no mesmo tick e sem quantum default
+	 */
+	@Test
+	public void criarProcessossemQuantumDefaultComPrioridade() {
+
+		Processo p1 = new Processo("P1", 0,1);
+		escalonador.adicionarProcessoComPrioridade(p1);
+		Processo p2 = new Processo("P2", 0,1);
+		escalonador.adicionarProcessoComPrioridade(p2);
+		
+		escalonador.ordenaPorPrioridade();
+		escalonador.setQuantum(4);
+
+		estourarQuantum(escalonador.getQuantum());
+
+		estourarQuantum(escalonador.getQuantum());
+
+		estourarQuantum(escalonador.getQuantum());
+
+		String resultado = "P1: Executando, Tick: 0, Quantum: 4\n" + "P2: Esperando, Tick: 0, Quantum: 4\n"
+				+ "P1: Executando, Tick: 1, Quantum: 4\n" + "P2: Esperando, Tick: 1, Quantum: 4\n"
+				+ "P1: Executando, Tick: 2, Quantum: 4\n" + "P2: Esperando, Tick: 2, Quantum: 4\n"
+				+ "P1: Executando, Tick: 3, Quantum: 4\n" + "P2: Esperando, Tick: 3, Quantum: 4\n"
+				+ "P1: Esperando, Tick: 4, Quantum: 4\n" + "P2: Executando, Tick: 4, Quantum: 4\n"
+				+ "P1: Esperando, Tick: 5, Quantum: 4\n" + "P2: Executando, Tick: 5, Quantum: 4\n"
+				+ "P1: Esperando, Tick: 6, Quantum: 4\n" + "P2: Executando, Tick: 6, Quantum: 4\n"
+				+ "P1: Esperando, Tick: 7, Quantum: 4\n" + "P2: Executando, Tick: 7, Quantum: 4\n"
+				+ "P1: Executando, Tick: 8, Quantum: 4\n" + "P2: Esperando, Tick: 8, Quantum: 4\n"
+				+ "P1: Executando, Tick: 9, Quantum: 4\n" + "P2: Esperando, Tick: 9, Quantum: 4\n"
+				+ "P1: Executando, Tick: 10, Quantum: 4\n" + "P2: Esperando, Tick: 10, Quantum: 4\n"
+				+ "P1: Executando, Tick: 11, Quantum: 4\n" + "P2: Esperando, Tick: 11, Quantum: 4\n";
+
+		assertEquals(escalonador.getStatus(), resultado);
+	}
 
 	// Teste 28 A partir de T 16 3 Ticks
 	
