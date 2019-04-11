@@ -574,8 +574,9 @@ public class EscalonadorTest {
 	}
 	
 	/**
-	 * Teste 23 esse teste cria dois processos no mesmo tick e sem quantum default
+	 * Teste 23 esse teste cria dois processos no mesmo tick e sem quantum default.
 	 */
+	
 	@Test
 	public void criarProcessossemQuantumDefaultComPrioridade() {
 
@@ -608,6 +609,27 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	/**
+	 * Teste 24 criar processo com prioridade e com intervalo
+	 */
+	@Test
+	public void criarDoisProcessosComIntervaloEComPrioridade() {
+		Processo p1 = new Processo("P1", 0,1);
+		escalonador.adicionarProcessoComPrioridade(p1);
+		escalonador.tick();
+		escalonador.finalizarProcesso(p1);
+		
+		assertEquals(escalonador.getStatus(), "Nenhum processo\n");
+		
+		Processo p2 = new Processo("P2", 0,2);
+		escalonador.adicionarProcessoComPrioridade(p2);
+		escalonador.tick();
+		String resultado = "Nenhum processo\n" + 
+				"P2: Executando, Tick: 1, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);
+	}
 
 	// Teste 28 A partir de T 16 3 Ticks
 	
@@ -630,6 +652,6 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 	}
 	
-
+	
 
 }
