@@ -528,19 +528,29 @@ public class EscalonadorTest {
 	@Test
 	public void testeComProcessoPrioridadeMaisTicks() {
 		escalonador.setPrioridade(true);
-		Processo p1 = new Processo("P1", 0);
-		p1.setPrioridade(3);
+		Processo p1 = new Processo("P1",0,3);
 		escalonador.adicionarProcessoComPrioridade(p1);
 		escalonador.tick();
 		escalonador.tick();
 		escalonador.tick();
-		Processo p2 = new Processo("P2", 0);
-		p2.setPrioridade(1);
+		Processo p2 = new Processo("P2",0,5);
 		escalonador.adicionarProcessoComPrioridade(p2);
+		escalonador.ordenaPorPrioridade();
 		estourarQuantum(10);
 		
-		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + "P1: Executando, Tick: 1, Quantum: 2\n"
-				+ "P1: Esperando, Tick: 2, Quantum: 2\n" +"P2: Executando, Tick: 2, Quantum: 2\n";
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n"
+				+ "P1: Executando, Tick: 1, Quantum: 2\n"
+				+ "P1: Executando, Tick: 2, Quantum: 2\n" 
+				+"P1: Executando, Tick: 3, Quantum: 2\n" + "P2: Esperando, Tick: 3, Quantum: 2\n"
+				+"P1: Executando, Tick: 4, Quantum: 2\n"+"P2: Esperando, Tick: 4, Quantum: 2\n"
+				+"P1: Executando, Tick: 5, Quantum: 2\n"+"P2: Esperando, Tick: 5, Quantum: 2\n"
+				+"P1: Executando, Tick: 6, Quantum: 2\n"+"P2: Esperando, Tick: 6, Quantum: 2\n"
+				+"P1: Executando, Tick: 7, Quantum: 2\n"+"P2: Esperando, Tick: 7, Quantum: 2\n"
+				+"P1: Executando, Tick: 8, Quantum: 2\n"+"P2: Esperando, Tick: 8, Quantum: 2\n"
+				+"P1: Executando, Tick: 9, Quantum: 2\n"+"P2: Esperando, Tick: 9, Quantum: 2\n"
+				+"P1: Executando, Tick: 10, Quantum: 2\n"+"P2: Esperando, Tick: 10, Quantum: 2\n"
+				+"P1: Executando, Tick: 11, Quantum: 2\n"+"P2: Esperando, Tick: 11, Quantum: 2\n"
+				+"P1: Executando, Tick: 12, Quantum: 2\n"+"P2: Esperando, Tick: 12, Quantum: 2\n";
 		assertEquals(escalonador.getStatus(), resultado);
 	}
 
