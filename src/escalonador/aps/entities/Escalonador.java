@@ -37,14 +37,6 @@ public class Escalonador {
 		}
 	}
 	
-	public void adicionarProcessoComPrioridade(Processo processo) throws SemPrioridadeException {
-		if (isPrioridade()) {
-			if (processo.getPrioridade()==-1) {
-				throw new SemPrioridadeException("Processo adicionado está sem prioridade.");
-			}
-		}
-		this.processos.add(processo);
-	}
 	public void finalizarProcesso(Processo processo) {
 		processo.setStatus(Status.Finalizado);
 		removerProcesso(processo);
@@ -191,24 +183,6 @@ public class Escalonador {
 		this.processos.set(indexIn, out);
 	}
 	
-	public void ordenaPorPrioridade() {
-		int cont = 0;
-		List<Processo> lista = new ArrayList<Processo>();	
-		while(cont < this.processos.size()){
-			Processo po = this.processos.get(0);
-			for(Processo p : this.processos) {
-				if(p.getPrioridade() < po.getPrioridade()) {
-					po = p;
-				}
-			}
-			lista.add(po);
-			this.processos.remove(po);
-			cont += 1;		
-		}
-		lista.add(processos.get(0));
-		this.processos = lista;
-
-	}
 	
 	public void exibirPrioridade() {
 		for(Processo p : this.processos) {
