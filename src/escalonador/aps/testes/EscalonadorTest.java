@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import escalonador.aps.entities.Escalonador;
+import escalonador.aps.entities.EscalonadorComPrioridade;
 import escalonador.aps.entities.Processo;
 import escalonador.aps.entities.Status;
 import escalonador.aps.exceptions.ComPrioridadeExcepetion;
@@ -14,6 +15,7 @@ import escalonador.aps.exceptions.SemPrioridadeException;
 public class EscalonadorTest {
 
 	private Escalonador escalonador;
+	private EscalonadorComPrioridade escalonadorP;
 
 	/**
 	 * Inicialização de uma instancia do escalonador para todos os testes
@@ -190,6 +192,8 @@ public class EscalonadorTest {
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}
+	
+	
 
 	/**
 	 * Teste 10 Cria dois processos no mesmo Tick e roda escolhendo o quantum;
