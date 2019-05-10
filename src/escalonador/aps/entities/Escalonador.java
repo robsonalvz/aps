@@ -145,7 +145,7 @@ public class Escalonador {
 		
 	}
 	
-	public void mudarStatus() {
+	private void mudarStatus() {
 		if(quantumEstourado()) {
 			for(Processo processo : this.processos) {
 				
