@@ -137,7 +137,7 @@ public class EscalonadorTest {
 		
 		assertEquals(escalonador.getStatus(), resultado);
 	}
-
+	
 
 	@Test
 	public void teste6() {
@@ -179,21 +179,25 @@ public class EscalonadorTest {
 		Processo p1 = new Processo("P1", 0);
 		Processo p2 = new Processo("P2", 3);
 		
-		escalonador.adicionarProcesso(p1);
-		escalonador.tickS();
-		escalonador.tickS();
-		escalonador.tickS();
-		escalonador.tickS();
-		escalonador.adicionarProcesso(p2);
-		escalonador.tickS();
 		
-		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" 
-				+ "P1: Executando, Tick: 1, Quantum: 2\n" 
-				+ "P1: Executando, Tick: 2, Quantum: 2\n"
-				+ "P1: Executando, Tick: 3, Quantum: 2\n"
-				+ "P2: Esperando, Tick: 3, Quantum: 2\n";
+		escalonador.adicionarProcesso(p1);
+		escalonador.setQuantum(1);
+		estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
+		escalonador.adicionarProcesso(p2);
+		estourarQuantum(escalonador.getQuantum());
+		
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 1\n" + 
+							"P1: Executando, Tick: 1, Quantum: 1\n" + 
+							"P1: Executando, Tick: 2, Quantum: 1\n" + 
+							"P1: Executando, Tick: 3, Quantum: 1\n" +
+							"P2: Esperando, Tick: 3, Quantum: 1\n";
+							
 		
 		assertEquals(escalonador.getStatus(), resultado);
+		
 	}
 	
 
