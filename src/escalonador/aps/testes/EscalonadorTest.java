@@ -111,13 +111,39 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 
 	}
+	
+	@Test
+	public void teste5() {
+		/**
+		 * Teste 5 criar dois processos no tick 0; 
+		 */
+		Processo p1 = new Processo("P1", 0);
+		escalonador.adicionarProcesso(p1);
+		Processo p2 = new Processo("P2", 0);
+		escalonador.adicionarProcesso(p2);
+		
+		escalonador.setQuantum(1);
+		
+		estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
+		estourarQuantum(escalonador.getQuantum());
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 1\n" + 
+							"P2: Esperando, Tick: 0, Quantum: 1\n" + 
+							"P1: Esperando, Tick: 1, Quantum: 1\n" + 
+							"P2: Executando, Tick: 1, Quantum: 1\n" +
+							"P1: Executando, Tick: 2, Quantum: 1\n" + 
+							"P2: Esperando, Tick: 2, Quantum: 1\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);
+	}
 
-	/**
-	 * Teste 6 Cria tres processos no mesmo Tick e roda;
-	 */
+
 	@Test
 	public void teste6() {
-
+		/**
+		 * Teste 6 Cria tres processos no mesmo Tick e roda;
+		 */
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
 		Processo p2 = new Processo("P2", 0);
