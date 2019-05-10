@@ -199,6 +199,14 @@ public class Escalonador {
 	}
 	
 	public void desbloquearProcesso(Processo p) {
+		for(Processo processo : this.processos) {
+			if(processo.getNome().equals(p.getNome())) {
+				this.removerProcesso(processo);
+				this.adicionarProcesso(p);
+				break;
+			}
+		}
+		
 		p.setStatus(Status.Esperando);
 	}
 	
