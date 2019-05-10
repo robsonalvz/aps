@@ -193,6 +193,23 @@ public class EscalonadorTest {
 		assertEquals(escalonador.getStatus(), resultado);
 	}
 	
+	@Test
+	public void teste9() {
+		Processo p1 = new Processo("P1", 0);
+		Processo p2 = new Processo("P2", 0);
+		
+		escalonador.adicionarProcesso(p1);
+		escalonador.adicionarProcesso(p2);
+		escalonador.tick();
+		escalonador.finalizarProcesso(p2);
+		escalonador.tick();
+		
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" +
+				"P2: Esperando, Tick: 0, Quantum: 2\n" + 
+				"P1: Executando, Tick: 1, Quantum: 2\n";
+		
+		assertEquals(escalonador.getStatus(), resultado);
+	}
 	
 
 	/**
@@ -240,15 +257,13 @@ public class EscalonadorTest {
 		Processo p1 = new Processo("P1", 0);
 		escalonador.adicionarProcesso(p1);
 		escalonador.tick();
-		escalonador.finalizarProcesso(p1);
-		
-		assertEquals(escalonador.getStatus(), "Nenhum processo\n");
-		
 		Processo p2 = new Processo("P2", 0);
 		escalonador.adicionarProcesso(p2);
 		escalonador.tick();
-		String resultado = "Nenhum processo\n" + 
-				"P2: Executando, Tick: 1, Quantum: 2\n";
+		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" + 
+				"P1: Executando, Tick: 1, Quantum: 2\n" + 
+				"P2: Esperando, Tick: 1, Quantum: 2\n";
+		
 		
 		assertEquals(escalonador.getStatus(), resultado);
 		
