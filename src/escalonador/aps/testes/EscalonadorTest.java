@@ -554,9 +554,7 @@ public class EscalonadorTest {
 	@Test
 	public void teste21() {
 		Processo p1 = new Processo("P1", 0, 1);
-		p1.setStatus(Status.Executando);
 		Processo p2 = new Processo("P2", 0, 1);
-		p2.setStatus(Status.Esperando);
 
 		escalonador.adicionarProcessoComPrioridade(p1);
 		escalonador.adicionarProcessoComPrioridade(p2);
