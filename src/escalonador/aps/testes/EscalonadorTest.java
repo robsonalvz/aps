@@ -535,7 +535,6 @@ public class EscalonadorTest {
 		escalonador.tickS();
 		escalonador.tickS();
 		escalonador.adicionarProcessoComPrioridade(p2);
-		escalonador.ordenaPorPrioridade();
 		escalonador.tickS();
 		
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" 
@@ -556,9 +555,7 @@ public class EscalonadorTest {
 	@Test
 	public void teste21() {
 		Processo p1 = new Processo("P1", 0, 1);
-		p1.setStatus(Status.Executando);
 		Processo p2 = new Processo("P2", 0, 1);
-		p2.setStatus(Status.Esperando);
 
 		escalonador.adicionarProcessoComPrioridade(p1);
 		escalonador.adicionarProcessoComPrioridade(p2);
@@ -581,9 +578,7 @@ public class EscalonadorTest {
 	@Test
 	public void teste22() {
 		Processo p1 = new Processo("P1",0,1);
-		p1.setStatus(Status.Executando);
 		Processo p2 = new Processo("P2",0,1);
-		p2.setStatus(Status.Esperando);
 
 		escalonador.adicionarProcessoComPrioridade(p1);
 		escalonador.adicionarProcessoComPrioridade(p2);
@@ -610,7 +605,7 @@ public class EscalonadorTest {
 		Processo p2 = new Processo("P2", 0,1);
 		escalonador.adicionarProcessoComPrioridade(p2);
 		
-		escalonador.ordenaPorPrioridade();
+
 		escalonador.setQuantum(4);
 
 		estourarQuantum(escalonador.getQuantum());
@@ -667,7 +662,7 @@ public class EscalonadorTest {
 		Processo p3 = new Processo("P3", 0, 3);
 		escalonador.adicionarProcessoComPrioridade(p3);
 
-		escalonador.ordenaPorPrioridade();
+	
 		estourarQuantum(escalonador.getQuantum());
 
 		escalonador.bloqueiaProcesso(p1);
@@ -703,7 +698,7 @@ public class EscalonadorTest {
 		Processo p3 = new Processo("P3", 0,3);
 		escalonador.adicionarProcessoComPrioridade(p3);
 
-		escalonador.ordenaPorPrioridade();
+	
 		escalonador.tick();
 
 		escalonador.bloqueiaProcesso(p1);
@@ -744,7 +739,7 @@ public class EscalonadorTest {
 		Processo p3 = new Processo("P3", 0, 3);
 		escalonador.adicionarProcessoComPrioridade(p3);;
 
-		escalonador.ordenaPorPrioridade();
+	
 		escalonador.tick();
 
 		escalonador.bloqueiaProcesso(p1);
@@ -799,7 +794,6 @@ public class EscalonadorTest {
 		escalonador.adicionarProcessoComPrioridade(p1);
 		Processo p2 = new Processo("P2",0,2);
 		escalonador.adicionarProcessoComPrioridade(p2);
-		escalonador.ordenaPorPrioridade();
 		escalonador.tick();
 		String resultado = ("P1: Executando, Tick: 0, Quantum: 2\n"+
 					"P2: Esperando, Tick: 0, Quantum: 2\n"+

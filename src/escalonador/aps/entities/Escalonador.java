@@ -129,7 +129,7 @@ public class Escalonador {
 	}
 	
 	public void tickS() {
-		
+		ordenaPorPrioridade();
 		if(this.cont == this.quantum) {
 			this.cont = this.cont % this.quantum;
 			this.mudarStatus();
@@ -145,7 +145,7 @@ public class Escalonador {
 		
 	}
 	
-	public void mudarStatus() {
+	private void mudarStatus() {
 		if(quantumEstourado()) {
 			for(Processo processo : this.processos) {
 				
