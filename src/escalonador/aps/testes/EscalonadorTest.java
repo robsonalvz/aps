@@ -29,7 +29,6 @@ public class EscalonadorTest {
 	 * @param quantum
 	 */
 	public void estourarQuantum(int quantum) {
-		
 		for(int i = 0; i < quantum; i++) {
 			escalonador.tick();
 		}
@@ -399,9 +398,10 @@ public class EscalonadorTest {
 
 		estourarQuantum(escalonador.getQuantum());
 		escalonador.desbloquearProcesso(p2);
+		System.out.println(p2.getStatus());
 		escalonador.desbloquearProcesso(p1);
 		escalonador.desbloquearProcesso(p3);
-		estourarQuantum(escalonador.getQuantum());
+		escalonador.tick();
 
 		String resultado = "P1: Executando, Tick: 0, Quantum: 1\n" + 
 				"P2: Esperando, Tick: 0, Quantum: 1\n" + 
@@ -409,8 +409,8 @@ public class EscalonadorTest {
 				"P1: Bloqueado, Tick: 1, Quantum: 1\n" + 
 				"P2: Bloqueado, Tick: 1, Quantum: 1\n" + 
 				"P3: Bloqueado, Tick: 1, Quantum: 1\n" +
-				"P2: Executando, Tick: 2, Quantum: 1\n" +
-				"P1: Esperando, Tick: 2, Quantum: 1\n" +
+				"P1: Executando, Tick: 2, Quantum: 1\n" +
+				"P2: Esperando, Tick: 2, Quantum: 1\n" +
 				"P3: Esperando, Tick: 2, Quantum: 1\n";
 		
 
@@ -532,12 +532,9 @@ public class EscalonadorTest {
 		Processo p2 = new Processo("P2", 3, 1);
 		
 		escalonador.adicionarProcessoComPrioridade(p1);
-		escalonador.tickS();
-		escalonador.tickS();
-		escalonador.tickS();
-		escalonador.tickS();
+		estourarQuantum(3);
 		escalonador.adicionarProcessoComPrioridade(p2);
-		escalonador.tickS();
+		escalonador.tick();
 		
 		String resultado = "P1: Executando, Tick: 0, Quantum: 2\n" 
 				+ "P1: Executando, Tick: 1, Quantum: 2\n" 
@@ -688,7 +685,7 @@ public class EscalonadorTest {
 	@Test
 	
 	/**
-	 * Teste 26 consiste em decloquear o processo, com prioridade.
+	 * Teste 26 consiste em desbloquear o processo, com prioridade.
 	 */
 	public void teste26() {
 
@@ -710,7 +707,6 @@ public class EscalonadorTest {
 
 		escalonador.tick();
 
-		escalonador.mudarStatus();
 
 		estourarQuantum(escalonador.getQuantum());
 
@@ -719,9 +715,9 @@ public class EscalonadorTest {
 				+ "P2: Executando, Tick: 1, Quantum: 2\n" + "P3: Esperando, Tick: 1, Quantum: 2\n"
 				+ "P1: Esperando, Tick: 2, Quantum: 2\n" + "P2: Executando, Tick: 2, Quantum: 2\n"
 				+ "P3: Esperando, Tick: 2, Quantum: 2\n" + "P1: Esperando, Tick: 3, Quantum: 2\n"
-				+ "P2: Esperando, Tick: 3, Quantum: 2\n" + "P3: Executando, Tick: 3, Quantum: 2\n"
-				+ "P1: Esperando, Tick: 4, Quantum: 2\n" + "P2: Esperando, Tick: 4, Quantum: 2\n"
-				+ "P3: Executando, Tick: 4, Quantum: 2\n";
+				+ "P2: Executando, Tick: 3, Quantum: 2\n" + "P3: Esperando, Tick: 3, Quantum: 2\n"
+				+ "P1: Esperando, Tick: 4, Quantum: 2\n" + "P2: Executando, Tick: 4, Quantum: 2\n"
+				+ "P3: Esperando, Tick: 4, Quantum: 2\n";
 
 		assertEquals(escalonador.getStatus(), resultado);
 	}

@@ -127,24 +127,6 @@ public class Escalonador {
 		rodar();
 		this.tick += 1;
 	}
-	
-	public void tickS() {
-		ordenaPorPrioridade();
-		if(this.cont == this.quantum) {
-			this.cont = this.cont % this.quantum;
-			this.mudarStatus();
-			
-		}else {
-			rodar();
-			this.tick += 1;
-			this.cont += 1;
-		}
-	}
-	
-	public void tickComPrioridade() {
-		
-	}
-	
 	public void mudarStatus() {
 		if(quantumEstourado()) {
 			for(Processo processo : this.processos) {
@@ -197,17 +179,20 @@ public class Escalonador {
 		lista.add(processos.get(0));
 		this.processos = lista;
 	}
-	
-	public void desbloquearProcesso(Processo p) {
-		for(Processo processo : this.processos) {
-			if(processo.getNome().equals(p.getNome())) {
-				this.removerProcesso(processo);
-				this.adicionarProcesso(p);
-				break;
+	public boolean todosBloqueados() {
+		boolean todosBloqueados = true;
+		for (Processo processo:this.processos) {
+		
+			if (!processo.getStatus().equals(Status.Bloqueado)) {
+			
+				todosBloqueados = false;
 			}
 		}
-		
-		p.setStatus(Status.Esperando);
+		return todosBloqueados;
+	}
+	public void desbloquearProcesso(Processo p) {
+		if (escalonadorLivre(p))p.setStatus(Status.Executando);
+		else p.setStatus(Status.Esperando);
 	}
 	
 	public void trocarOrdemExecucao(Processo in, Processo out) {
